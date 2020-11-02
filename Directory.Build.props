@@ -1,0 +1,77 @@
+<Project>  
+  <Import Project="build\external-dependencies.props" />
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)build\stize-white.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <Product>Stize</Product>
+
+    <Authors>Stize</Authors>
+    <Company>Stize</Company>
+    <RpmPackageVendor>Stize</RpmPackageVendor>
+    <Copyright>© Stize. All rights reserved.</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageLicenseUrl>https://github.com/stize/dotnet/LICENSE.txt</PackageLicenseUrl>
+    <!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
+    <PackageLicenseType>Apache-2.0</PackageLicenseType>
+    <!--
+      Suppress a warning about upcoming deprecation of PackageLicenseUrl. When embedding licenses are supported,
+      replace PackageLicenseUrl with PackageLicenseExpression.
+    -->
+    <NoWarn>$(NoWarn);NU5125</NoWarn>
+    <!-- Suppress warnings about using SemVer 2.0. -->
+    <NoWarn>$(NoWarn);NU5105</NoWarn>
+	<!-- Problems with VS for Mac  -->
+	<NoWarn>$(NoWarn);CS1701</NoWarn>
+	
+
+    <!-- Contact email address for NuGet packages. -->
+    <MaintainerEmail>contact@stize.io</MaintainerEmail>
+
+	<PackageIcon>stize-white.png</PackageIcon>
+    <PackageProjectUrl>https://www.stize.io/</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Serviceable>true</Serviceable>
+
+    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+    <RepositoryUrl>https://github.com/stize/dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+  </PropertyGroup>
+
+  <!-- Folder layout -->
+  <PropertyGroup>    
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepositoryRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
+
+    <IsBenchmarkProject Condition="$(MSBuildProjectName.EndsWith('.Performance'))">true</IsBenchmarkProject>
+    <IsTestProject Condition="$(MSBuildProjectName.EndsWith('.Test'))">true</IsTestProject>    
+    <IsSampleProject Condition="$(MSBuildProjectName.EndsWith('.Sample'))">true</IsSampleProject>
+
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+
+	<ArtifactsDir Condition="'$(ArtifactsDir)' == ''">$(RepositoryRoot)artifacts\</ArtifactsDir>
+    <ArtifactsConfigurationDir>$(ArtifactsDir)$(Configuration)\</ArtifactsConfigurationDir>	
+	<ArtifactsObjDir>$(ArtifactsConfigurationDir)$(MSBuildProjectName)\obj\</ArtifactsObjDir>
+    <ArtifactsBinDir>$(ArtifactsConfigurationDir)$(MSBuildProjectName)\bin\</ArtifactsBinDir>
+    
+    <OutputPath>$(ArtifactsBinDir)</OutputPath>
+	<PackageOutputPath>$(ArtifactsDir)build\</PackageOutputPath>
+  </PropertyGroup>
+  
+  <PropertyGroup Label="Source Link">
+    <IncludeSource>false</IncludeSource>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>	
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>	
+  </PropertyGroup>
+  <ItemGroup>
+  <!-- Add PackageReference specific for your source control provider (see below) --> 
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+
+</Project>
