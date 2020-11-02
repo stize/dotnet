@@ -1,51 +1,53 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{FDA6536C-5654-427B-A9CB-BF3ADC8295FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Domain", "Domain\Core\Stize.Domain.csproj", "{2800878F-B8D7-4271-8BAA-2BD377BDD96C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Domain", "Domain\Core\Stize.Domain.csproj", "{2800878F-B8D7-4271-8BAA-2BD377BDD96C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Domain.File", "Domain\File\Stize.Domain.File.csproj", "{C6A59BB5-1D94-46C4-AD1D-576AD019E6BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Domain.File", "Domain\File\Stize.Domain.File.csproj", "{C6A59BB5-1D94-46C4-AD1D-576AD019E6BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Domain.i18n", "Domain\i18n\Stize.Domain.i18n.csproj", "{22D5B16C-E3F8-4410-B4FC-F52110648BCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Domain.i18n", "Domain\i18n\Stize.Domain.i18n.csproj", "{22D5B16C-E3F8-4410-B4FC-F52110648BCC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotNet", "DotNet", "{98DDAA5F-7B46-4A29-B76C-50D95A9433F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.DotNet.Delta", "DotNet\Delta\Stize.DotNet.Delta.csproj", "{4351775F-0A56-418F-AD05-20BC7BE152C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.DotNet.Delta", "DotNet\Delta\Stize.DotNet.Delta.csproj", "{4351775F-0A56-418F-AD05-20BC7BE152C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.DotNet.Extensions", "DotNet\Extensions\Stize.DotNet.Extensions.csproj", "{17A72E7A-CD72-4350-8035-8019ADDD8BB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.DotNet.Extensions", "DotNet\Extensions\Stize.DotNet.Extensions.csproj", "{17A72E7A-CD72-4350-8035-8019ADDD8BB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.DotNet.FileSystem", "DotNet\FileSystem\Stize.DotNet.FileSystem.csproj", "{88E104B4-8366-437C-A08C-26C6EF104AE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.DotNet.FileSystem", "DotNet\FileSystem\Stize.DotNet.FileSystem.csproj", "{88E104B4-8366-437C-A08C-26C6EF104AE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.DotNet.Providers", "DotNet\Providers\Stize.DotNet.Providers.csproj", "{0E5E7527-CA16-4D24-9256-1FA2FB9165C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.DotNet.Providers", "DotNet\Providers\Stize.DotNet.Providers.csproj", "{0E5E7527-CA16-4D24-9256-1FA2FB9165C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.DotNet.Result", "DotNet\Result\Stize.DotNet.Result.csproj", "{F22DBF92-35FC-4ED7-951D-F5138313B7FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.DotNet.Result", "DotNet\Result\Stize.DotNet.Result.csproj", "{F22DBF92-35FC-4ED7-951D-F5138313B7FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.DotNet.Search", "DotNet\Search\Stize.DotNet.Search.csproj", "{8622738B-E6B0-490C-8AE3-797973FA58F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.DotNet.Search", "DotNet\Search\Stize.DotNet.Search.csproj", "{8622738B-E6B0-490C-8AE3-797973FA58F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.DotNet.Specification", "DotNet\Specification\Stize.DotNet.Specification.csproj", "{8F4A0E43-249A-4CA7-853C-5D8946847454}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.DotNet.Specification", "DotNet\Specification\Stize.DotNet.Specification.csproj", "{8F4A0E43-249A-4CA7-853C-5D8946847454}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosting", "Hosting", "{75EE2542-3CBC-431F-82E4-0F3AB4C166C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Hosting.AspNetCore", "Hosting\AspNetCore\Stize.Hosting.AspNetCore.csproj", "{C9D75D98-151F-4CF2-AE43-9F9D3E191CDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Hosting.AspNetCore", "Hosting\AspNetCore\Stize.Hosting.AspNetCore.csproj", "{C9D75D98-151F-4CF2-AE43-9F9D3E191CDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Hosting.AspNetCore.Delta", "Hosting\AspNetCore.Delta\Stize.Hosting.AspNetCore.Delta.csproj", "{38790678-FF04-4400-A437-B33C264D0642}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Hosting.AspNetCore.Delta", "Hosting\AspNetCore.Delta\Stize.Hosting.AspNetCore.Delta.csproj", "{38790678-FF04-4400-A437-B33C264D0642}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mapping", "Mapping", "{95D91F06-6698-4700-A00E-19050EEC382E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Mapping.AutoMapper", "Mapping\AutoMapper\Stize.Mapping.AutoMapper.csproj", "{120C8BA5-16FD-48EF-AAD3-2DEFE367E3E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Mapping.AutoMapper", "Mapping\AutoMapper\Stize.Mapping.AutoMapper.csproj", "{120C8BA5-16FD-48EF-AAD3-2DEFE367E3E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Mapping", "Mapping\Core\Stize.Mapping.csproj", "{97D235F7-05B0-4E34-BA90-D38B250913DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Mapping", "Mapping\Core\Stize.Mapping.csproj", "{97D235F7-05B0-4E34-BA90-D38B250913DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{BD6E3DF8-40C8-4C37-A65C-D2D08B3C0301}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Persistence", "Persistence\Core\Stize.Persistence.csproj", "{88059FA1-D0F1-4937-A437-8308B872447B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Persistence", "Persistence\Core\Stize.Persistence.csproj", "{88059FA1-D0F1-4937-A437-8308B872447B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Persistence.Repository", "Persistence\Repository\Stize.Persistence.Repository.csproj", "{3153C503-5A40-46BF-916B-FAEDB2289C5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Persistence.Repository", "Persistence\Repository\Stize.Persistence.Repository.csproj", "{3153C503-5A40-46BF-916B-FAEDB2289C5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stize.Persistence.Repository.EFCore", "Persistence\Repository.EFCore\Stize.Persistence.Repository.EFCore.csproj", "{1209E6DD-723E-49CE-A033-3F47FC8C79A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Persistence.Repository.EFCore", "Persistence\Repository.EFCore\Stize.Persistence.Repository.EFCore.csproj", "{1209E6DD-723E-49CE-A033-3F47FC8C79A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.DotNet.Search.Specification", "DotNet\Search.Specification\Stize.DotNet.Search.Specification.csproj", "{D7CA0A70-817A-4046-993F-0577DA558627}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,9 +57,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2800878F-B8D7-4271-8BAA-2BD377BDD96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -264,6 +263,21 @@ Global
 		{1209E6DD-723E-49CE-A033-3F47FC8C79A6}.Release|x64.Build.0 = Release|Any CPU
 		{1209E6DD-723E-49CE-A033-3F47FC8C79A6}.Release|x86.ActiveCfg = Release|Any CPU
 		{1209E6DD-723E-49CE-A033-3F47FC8C79A6}.Release|x86.Build.0 = Release|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Debug|x64.Build.0 = Debug|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Debug|x86.Build.0 = Debug|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Release|x64.ActiveCfg = Release|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Release|x64.Build.0 = Release|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Release|x86.ActiveCfg = Release|Any CPU
+		{D7CA0A70-817A-4046-993F-0577DA558627}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2800878F-B8D7-4271-8BAA-2BD377BDD96C} = {FDA6536C-5654-427B-A9CB-BF3ADC8295FA}
@@ -283,5 +297,9 @@ Global
 		{88059FA1-D0F1-4937-A437-8308B872447B} = {BD6E3DF8-40C8-4C37-A65C-D2D08B3C0301}
 		{3153C503-5A40-46BF-916B-FAEDB2289C5E} = {BD6E3DF8-40C8-4C37-A65C-D2D08B3C0301}
 		{1209E6DD-723E-49CE-A033-3F47FC8C79A6} = {BD6E3DF8-40C8-4C37-A65C-D2D08B3C0301}
+		{D7CA0A70-817A-4046-993F-0577DA558627} = {98DDAA5F-7B46-4A29-B76C-50D95A9433F2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4FA1DAE7-2613-4103-803A-973605206EDA}
 	EndGlobalSection
 EndGlobal
