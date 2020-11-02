@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
 using Stize.DotNet.Providers.DateTime;
 using Stize.DotNet.Providers.Identity;
 
-namespace Microsoft.Extensions.DependencyInjection {
-
+namespace Microsoft.Extensions.DependencyInjection
+{
     public static class DependencyInjectionExtensions
     {
         public static IServiceCollection AddDateTimeProvider(this IServiceCollection services)
