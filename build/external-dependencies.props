@@ -1,7 +1,11 @@
 <Project>
 
   <PropertyGroup Label="Microsoft Extensions">
-	<MicrosoftExtensions>3.1.3</MicrosoftExtensions>
+	<MicrosoftExtensions>3.1.9</MicrosoftExtensions>
+  </PropertyGroup>
+  
+  <PropertyGroup Label="System">
+    <MicrosoftCSharp>4.7.0</MicrosoftCSharp>
   </PropertyGroup>
 
 </Project>

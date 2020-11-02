@@ -61,6 +61,42 @@ namespace Stize.DotNet.Extensions.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The property &apos;{0}&apos; on type &apos;{1}&apos; returned a null value. The input stream contains collection items which cannot be added if the instance is null..
+        /// </summary>
+        internal static string CannotAddToNullCollection {
+            get {
+                return ResourceManager.GetString("CannotAddToNullCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type &apos;{0}&apos; does not have an Add method. Consider using a collection type that does have an Add method - for example IList&amp;lt;T&amp;gt; or ICollection&amp;lt;T&amp;gt;..
+        /// </summary>
+        internal static string CollectionShouldHaveAddMethod {
+            get {
+                return ResourceManager.GetString("CollectionShouldHaveAddMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type &apos;{0}&apos; does not have a Clear method. Consider using a collection type that does have a Clear method, such as IList&amp;lt;T&amp;gt; or ICollection&amp;lt;T&amp;gt;..
+        /// </summary>
+        internal static string CollectionShouldHaveClearMethod {
+            get {
+                return ResourceManager.GetString("CollectionShouldHaveClearMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type &apos;{0}&apos; is an array. Consider adding a setter for the property..
+        /// </summary>
+        internal static string GetOnlyCollectionCannotBeArray {
+            get {
+                return ResourceManager.GetString("GetOnlyCollectionCannotBeArray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must pass a lambda of the form: &apos;() =&gt; Class.Property&apos; or &apos;() =&gt; object.Property&apos;.
         /// </summary>
         internal static string LambdaFormatErrorNotParameter {
@@ -70,11 +106,83 @@ namespace Stize.DotNet.Extensions.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The type &apos;{0}&apos; of the property &apos;{1}&apos; on type &apos;{2}&apos; must be a collection..
+        /// </summary>
+        internal static string PropertyIsNotCollection {
+            get {
+                return ResourceManager.GetString("PropertyIsNotCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Property &apos;{0}&apos; doesn&apos;t exist on type &apos;{1}&apos;.
         /// </summary>
         internal static string PropertyMissing {
             get {
                 return ResourceManager.GetString("PropertyMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a boolean..
+        /// </summary>
+        internal static string PropertyMustBeBoolean {
+            get {
+                return ResourceManager.GetString("PropertyMustBeBoolean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a DateTimeOffset or Date..
+        /// </summary>
+        internal static string PropertyMustBeDateTimeOffsetOrDate {
+            get {
+                return ResourceManager.GetString("PropertyMustBeDateTimeOffsetOrDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a string..
+        /// </summary>
+        internal static string PropertyMustBeString {
+            get {
+                return ResourceManager.GetString("PropertyMustBeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a string with a length of 1..
+        /// </summary>
+        internal static string PropertyMustBeStringLengthOne {
+            get {
+                return ResourceManager.GetString("PropertyMustBeStringLengthOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a string with a maximum length of 1..
+        /// </summary>
+        internal static string PropertyMustBeStringMaxLengthOne {
+            get {
+                return ResourceManager.GetString("PropertyMustBeStringMaxLengthOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a Edm.TimeOfDay..
+        /// </summary>
+        internal static string PropertyMustBeTimeOfDay {
+            get {
+                return ResourceManager.GetString("PropertyMustBeTimeOfDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The PropertyInfo provided must have public &apos;get&apos; and &apos;set&apos; accessor methods..
+        /// </summary>
+        internal static string PropertyMustHavePublicGetterAndSetter {
+            get {
+                return ResourceManager.GetString("PropertyMustHavePublicGetterAndSetter", resourceCulture);
             }
         }
     }
