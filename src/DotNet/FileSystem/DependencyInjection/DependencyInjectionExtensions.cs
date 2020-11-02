@@ -9,12 +9,5 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IFileSystem, LocalFileSystemSystem>();
             return services;
         }
-
-
-        public static IServiceCollection AddInMemoryFileSystem(this IServiceCollection services)
-        {
-            services.AddScoped<IFileSystem, InMemoryFileSystem>();
-            return services;
-        }
     }
 }

@@ -25,23 +25,7 @@ namespace System
         /// <returns>Object in <typeparamref name="T"/> type with the String value if its possible</returns>
         public static T ConvertTo<T>(this string s)
         {
-            var targetType = typeof(T).GetEffectiveType();
-
-            if (targetType == typeof(string))
-            {
-                return (T)(object)s;
-            }
-            if (s.IsNullOrEmpty())
-            {
-                return default(T);
-            }
-
-            if (targetType.IsEnum())
-            {
-                return (T)s.ToEnum(targetType, default(T));
-            }
-
-            return (T)Convert.ChangeType(s, targetType);
+            return (T) PrimitiveConverter.ConvertPrimitiveValue(s, typeof(T));
         }
 
         /// <summary>
@@ -52,23 +36,7 @@ namespace System
         /// <returns>Object in <paramref name="type"/> type with the String value if its possible</returns>
         public static object ConvertTo(this string s, Type type)
         {
-            var targetType = type.GetEffectiveType();
-
-            if (targetType == typeof(string))
-            {
-                return s;
-            }
-            if (s.IsNullOrEmpty())
-            {
-                return null;
-            }
-
-            if (targetType.IsEnum())
-            {
-                return s.ToEnum(targetType, null);
-            }
-
-            return Convert.ChangeType(s, targetType);
+            return PrimitiveConverter.ConvertPrimitiveValue(s, type);
         }
 
         /// <summary>
@@ -186,29 +154,6 @@ namespace System
             }
 
             return char.ToUpperInvariant(str[0]) + str.Substring(1);
-        }
-
-        /// <summary>
-        /// Encrypts a string using SHA256 algorithm
-        /// </summary>
-        /// <param name="str">String</param>
-        /// <returns>Encrypted string</returns>
-        public static string ToSHA256(this string str)
-        {
-            using (var sha = SHA256.Create())
-            {
-                var encoding = new ASCIIEncoding();
-
-                var sb = new StringBuilder();
-                var bytes = sha.ComputeHash(encoding.GetBytes(str));
-
-                foreach (var t in bytes)
-                {
-                    sb.AppendFormat("{0:x2}", t);
-                }
-                return sb.ToString();
-            }
-
         }
     }
 }
