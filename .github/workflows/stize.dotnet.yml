@@ -2,7 +2,8 @@ name: stize.dotnet-CD
 
 on:
   push:
-    tags: [ ** ]
+    tags:
+      - '**'
 
 jobs:
   build:
