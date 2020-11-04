@@ -2,7 +2,7 @@ name: stize.dotnet-CD
 
 on:
   push:
-    branches: [ feature/publish-github-packages ]
+    tags: [ ** ]
 
 jobs:
   build:
