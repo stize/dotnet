@@ -35,7 +35,7 @@ jobs:
 
       - name: pack
         run: |
-            dotnet pack ${{ env.sln }} -p:PackageVersion=${{MinVerVersion}}
+            dotnet pack ${{ env.sln }} -p:PackageVersion=${{steps.version.outputs.version}}
 
       - name: list
         run: |
