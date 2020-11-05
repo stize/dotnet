@@ -6,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddLocalFileSystem(this IServiceCollection services)
         {
-            services.AddScoped<IFileSystem, LocalFileSystemSystem>();
+            services.AddScoped<IFileSystem, LocalFileSystem>();
             return services;
         }
     }

@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 namespace Stize.DotNet.FileSystem
 {
     /// <summary>
-    /// Default storage system for KOA, using node file system.
+    /// Default storage file system.
     /// Class not recommended to use in Container/Cloud scenarios
     /// </summary>
-    public class LocalFileSystemSystem : IFileSystem
+    public class LocalFileSystem : IFileSystem
     {
 
         /// <summary>
