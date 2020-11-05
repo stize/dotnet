@@ -9,4 +9,8 @@
 	<SystemComponentModelAnnotations>4.7.0</SystemComponentModelAnnotations>
   </PropertyGroup>
 
+  <PropertyGroup Label="AutoMapper">
+    <AutoMapper>10.1.1</AutoMapper>   
+    <AutoMapperExtensionsMicrosoftDependencyInjection>8.1.0</AutoMapperExtensionsMicrosoftDependencyInjection>   
+  </PropertyGroup> 
 </Project>
