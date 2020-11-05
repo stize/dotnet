@@ -6,6 +6,7 @@
   
   <PropertyGroup Label="System">
     <MicrosoftCSharp>4.7.0</MicrosoftCSharp>
+	<SystemComponentModelAnnotations>4.7.0</SystemComponentModelAnnotations>
   </PropertyGroup>
 
 </Project>
