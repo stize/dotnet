@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\DotNet\Search\Stize.DotNet.Search.csproj" />
+    <ProjectReference Include="..\..\DotNet\Specification\Stize.DotNet.Specification.csproj" />
+  </ItemGroup>
+
 </Project>
