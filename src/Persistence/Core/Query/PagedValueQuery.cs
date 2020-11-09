@@ -4,11 +4,10 @@ using Stize.DotNet.Specification;
 
 namespace Stize.Persistence.Query
 {
-    public class PagedValueQuery<TEntity, TResult> : MultipleValueQuery<TEntity, TResult>, IPagedValueQuery<TEntity, TResult> 
-        where TEntity : class 
-        where TResult : class
+    public class PagedValueQuery<T> : MultipleValueQuery<T>, IPagedValueQuery<T>
+        where T : class
     {
-        public PagedValueQuery(ISpecification<TEntity> specification, int? take = null, int? skip = null) : base(specification)
+        public PagedValueQuery(ISpecification<T> specification, int? take = null, int? skip = null) : base(specification)
         {
             this.Take = take;
             this.Skip = skip;

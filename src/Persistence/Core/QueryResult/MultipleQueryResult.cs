@@ -2,7 +2,8 @@ using System.Collections.Generic;
 
 namespace Stize.Persistence.QueryResult
 {
-    public class MultipleQueryResult<T> : IMultipleQueryResult<T> where T : class
+    public class MultipleQueryResult<T> : IMultipleQueryResult<T> 
+        where T : class
     {
         public MultipleQueryResult(IEnumerable<T> result)
         {

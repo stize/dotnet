@@ -1,13 +1,11 @@
 using Stize.DotNet.Specification;
-using Stize.Persistence.QueryResult;
 
 namespace Stize.Persistence.Query
 {
-    public class MultipleValueQuery<TEntity, TResult> : Query<TEntity, IMultipleQueryResult<TResult>>, IMultipleValueQuery<TEntity, TResult> 
-        where TEntity : class 
-        where TResult : class
+    public class MultipleValueQuery<T> : Query<T>, IMultipleValueQuery<T>
+        where T : class
     {
-        public MultipleValueQuery(ISpecification<TEntity> specification) : base(specification)
+        public MultipleValueQuery(ISpecification<T> specification) : base(specification)
         {
         }
     }

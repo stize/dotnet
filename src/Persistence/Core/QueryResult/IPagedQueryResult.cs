@@ -1,24 +1,20 @@
 ﻿namespace Stize.Persistence.QueryResult
 {
-    /// <summary>
-    /// Paged query result interface
-    /// </summary>
-    /// <typeparam name="T">Entity type</typeparam>
-    public interface IPagedQueryResult<T> : IMultipleQueryResult<T>
+    public interface IPagedQueryResult<out T> : IMultipleQueryResult<T>
         where T : class
     {
         /// <summary>
-        /// Total results
+        ///     Total results
         /// </summary>
         int Total { get; }
 
         /// <summary>
-        /// Take
+        ///     Take
         /// </summary>
         int? Take { get; }
 
         /// <summary>
-        /// Skip
+        ///     Skip
         /// </summary>
         int? Skip { get; }
     }
