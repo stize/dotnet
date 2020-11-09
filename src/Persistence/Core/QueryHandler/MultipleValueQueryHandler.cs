@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Stize.Persistence.Materializer;
 using Stize.Persistence.Query;
 using Stize.Persistence.QueryResult;
@@ -10,13 +12,13 @@ namespace Stize.Persistence.QueryHandler
         where TSource : class
         where TTarget : class
     {
-        public MultipleValueQueryHandler(IMaterializer<TSource, TTarget> materializer) : base(materializer)
+        public MultipleValueQueryHandler(IMaterializer<TSource, TTarget> materializer, IQueryableProvider provider) : base(materializer,provider)
         {
         }
-
-        protected override IMultipleQueryResult<TTarget> GenerateResult(IQueryable<TTarget> queryable)
+        
+        protected override async Task<IMultipleQueryResult<TTarget>> GenerateResultAsync(IQueryable<TTarget> queryable, CancellationToken cancellationToken = default)
         {
-            var values = queryable.ToArray();
+            var values = await this.Provider.ToArrayAsync(queryable, cancellationToken);
             return new MultipleQueryResult<TTarget>(values);
         }
     }

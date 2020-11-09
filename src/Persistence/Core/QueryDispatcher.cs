@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Stize.Persistence.Query;
 using Stize.Persistence.QueryHandler;
@@ -15,14 +16,14 @@ namespace Stize.Persistence
             this.serviceProvider = serviceProvider;
         }
 
-        public TResult Dispatch<TQuery, TSource, TTarget, TResult>(TQuery query)
+        public async Task<TResult> DispatchAsync<TQuery, TSource, TTarget, TResult>(TQuery query)
             where TQuery : IQuery<TSource>
             where TSource : class
             where TTarget : class
             where TResult : IQueryResult
         {
             var handler = this.serviceProvider.GetRequiredService<IQueryHandler<TQuery, TSource, TTarget, TResult>>();
-            var result = handler.Handle(query);
+            var result = await handler.HandleAsync(query);
             return result;
         }
     }

@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Core\Stize.Domain.csproj" />
     <ProjectReference Include="..\..\DotNet\Specification\Stize.DotNet.Specification.csproj" />
+    <ProjectReference Include="..\Core\Stize.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

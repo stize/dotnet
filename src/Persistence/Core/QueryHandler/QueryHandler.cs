@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Stize.Persistence.Materializer;
 using Stize.Persistence.Query;
 using Stize.Persistence.QueryResult;
@@ -11,34 +13,42 @@ namespace Stize.Persistence.QueryHandler
         where TTarget : class
         where TResult : IQueryResult
     {
-        protected QueryHandler(IMaterializer<TSource, TTarget> materializer)
+        protected QueryHandler(IMaterializer<TSource, TTarget> materializer, IQueryableProvider provider)
         {
+            this.Provider = provider;
             this.Materializer = materializer;
         }
 
         protected IMaterializer<TSource, TTarget> Materializer { get; }
 
+        protected IQueryableProvider Provider { get; }
+
         protected TQuery Query { get; private set; }
 
-        public virtual TResult Handle(TQuery query)
+        public virtual async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken = default)
         {
             this.Query = query;
-            var queryable = this.RunQuery();
-            var materialized = this.Materialize(queryable);
-            var result = this.GenerateResult(materialized);
+            var queryable = await this.RunQueryAsync(cancellationToken);
+            var materialized = await this.MaterializeAsync(queryable, cancellationToken);
+            var result = await this.GenerateResultAsync(materialized, cancellationToken);
             return result;
         }
 
-        protected virtual IQueryable<TSource> RunQuery()
+        protected virtual Task<IQueryable<TSource>> RunQueryAsync(CancellationToken cancellationToken = default)
         {
-            return queryable.Where(this.Query.Specification);
+            var query = this.Provider.GetQueryable<TSource>().Where(this.Query.Specification);
+            return Task.FromResult(query);
         }
 
-        protected virtual IQueryable<TTarget> Materialize(IQueryable<TSource> queryable)
+        protected virtual Task<IQueryable<TTarget>> MaterializeAsync(IQueryable<TSource> queryable, CancellationToken cancellationToken = default)
         {
-            return this.Materializer.Materialize(queryable);
+            var materialized = this.Materializer.Materialize(queryable);
+            return Task.FromResult(materialized);
         }
 
-        protected abstract TResult GenerateResult(IQueryable<TTarget> queryable);
+        protected abstract Task<TResult> GenerateResultAsync(IQueryable<TTarget> queryable, CancellationToken cancellationToken = default);
+
     }
+
+
 }
