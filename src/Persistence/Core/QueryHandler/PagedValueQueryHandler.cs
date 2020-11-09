@@ -55,4 +55,13 @@ namespace Stize.Persistence.QueryHandler
             return pagedResult;
         }
     }
+
+    public class PagedValueQueryHandler<TQuery, TSource> : PagedValueQueryHandler<TQuery, TSource, TSource>, IPagedValueQueryHandler<TQuery, TSource>
+        where TQuery : IPagedValueQuery<TSource>
+        where TSource : class
+    {
+        public PagedValueQueryHandler(IMaterializer<TSource> materializer, IQueryableProvider provider) : base(materializer, provider)
+        {
+        }
+    }
 }

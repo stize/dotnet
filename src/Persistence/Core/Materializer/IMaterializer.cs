@@ -6,4 +6,9 @@ namespace Stize.Persistence.Materializer
     {
         IQueryable<TTarget> Materialize(IQueryable<TSource> queryable);
     }
+
+    public interface IMaterializer<TSource>: IMaterializer<TSource, TSource>
+    {
+
+    }
 }

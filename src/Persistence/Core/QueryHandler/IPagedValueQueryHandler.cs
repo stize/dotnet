@@ -9,4 +9,11 @@ namespace Stize.Persistence.QueryHandler
         where TTarget : class
     {
     }
+
+    public interface IPagedValueQueryHandler<in TQuery, TSource> : IPagedValueQueryHandler<TQuery, TSource, TSource>
+        where TQuery : IPagedValueQuery<TSource>
+        where TSource : class
+    {
+
+    }
 }

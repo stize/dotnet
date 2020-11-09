@@ -22,4 +22,13 @@ namespace Stize.Persistence.QueryHandler
             return new SingleQueryResult<TTarget>(value);
         }
     }
+
+    public class SingleValueQueryHandler<TQuery, TSource> : SingleValueQueryHandler<TQuery, TSource, TSource>, ISingleValueQueryHandler<TQuery, TSource>
+        where TQuery : ISingleValueQuery<TSource>
+        where TSource : class
+    {
+        protected SingleValueQueryHandler(IMaterializer<TSource> materializer, IQueryableProvider provider) : base(materializer, provider)
+        {
+        }
+    }
 }

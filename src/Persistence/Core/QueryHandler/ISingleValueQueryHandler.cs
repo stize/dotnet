@@ -9,4 +9,11 @@ namespace Stize.Persistence.QueryHandler
         where TTarget : class
     {
     }
+
+    public interface ISingleValueQueryHandler<in TQuery, TSource> : ISingleValueQueryHandler<TQuery, TSource, TSource>
+        where TQuery : ISingleValueQuery<TSource>
+        where TSource : class
+    {
+
+    }
 }

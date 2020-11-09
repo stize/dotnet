@@ -22,4 +22,13 @@ namespace Stize.Persistence.QueryHandler
             return new MultipleQueryResult<TTarget>(values);
         }
     }
+
+    public class MultipleValueQueryHandler<TQuery, TSource> : MultipleValueQueryHandler<TQuery, TSource, TSource>, IMultipleValueQueryHandler<TQuery, TSource>
+        where TQuery : IMultipleValueQuery<TSource>
+        where TSource : class
+    {
+        public MultipleValueQueryHandler(IMaterializer<TSource> materializer, IQueryableProvider provider) : base(materializer, provider)
+        {
+        }
+    }
 }

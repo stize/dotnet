@@ -9,4 +9,11 @@ namespace Stize.Persistence.QueryHandler
         where TTarget : class
     {
     }
+
+    public interface IMultipleValueQueryHandler<in TQuery, TSource> : IMultipleValueQueryHandler<TQuery, TSource, TSource>
+        where TQuery : IMultipleValueQuery<TSource>
+        where TSource : class
+    {
+
+    }
 }
