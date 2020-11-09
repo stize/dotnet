@@ -2,7 +2,7 @@
 {
     public class Warning : Reason
     {
-        public Warning(string message) : base(message)
+        public Warning(string message) : base(message, nameof(Warning))
         {
         }
     }

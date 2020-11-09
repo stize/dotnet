@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Stize.Domain.Entity;
 
 namespace Stize.Domain.i18n
 {

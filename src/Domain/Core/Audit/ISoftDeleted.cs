@@ -5,7 +5,7 @@ namespace Stize.Domain.Audit
     /// <summary>
     /// Interface for SoftDeletedEntity
     /// </summary>
-    public interface ISoftDeletedEntity
+    public interface ISoftDeleted
     {
         /// <summary>
         /// Boolean that represents if the entity is deleted

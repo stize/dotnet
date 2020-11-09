@@ -2,7 +2,7 @@
 {
     public class Success : Reason
     {
-        public Success(string message) : base(message)
+        public Success(string message) : base(message, nameof(Success))
         {
         }
     }

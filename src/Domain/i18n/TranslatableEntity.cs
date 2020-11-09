@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Stize.Domain.Entity;
 
 namespace Stize.Domain.i18n
 {

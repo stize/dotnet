@@ -2,7 +2,7 @@
 {
     public class Information : Reason
     {
-        public Information(string message) : base(message)
+        public Information(string message) : base(message, nameof(Information))
         {
         }
     }

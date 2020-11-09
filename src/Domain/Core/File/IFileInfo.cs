@@ -1,6 +1,6 @@
 namespace Stize.Domain.File
 {
-    public interface IFileEntity
+    public interface IFileInfo
     {
 
         /// <summary>

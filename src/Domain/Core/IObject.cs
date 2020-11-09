@@ -1,11 +1,11 @@
 ﻿namespace Stize.Domain
 {
 
-    public interface IEntity 
+    public interface IObject 
     {
     }
 
-    public interface IEntity<TKey> : IEntity
+    public interface IObject<TKey> : IObject
     {
         TKey Id { get; set; }
     }

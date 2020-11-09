@@ -2,7 +2,7 @@
 {
     public class Error : Reason
     {
-        public Error(string message) : base(message)
+        public Error(string message) : base(message, nameof(Error))
         {
         }
     }
