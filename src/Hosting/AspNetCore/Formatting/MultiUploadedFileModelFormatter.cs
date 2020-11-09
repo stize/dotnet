@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
+using Stize.DotNet.Json;
 using Stize.Hosting.AspNetCore.Model;
 
 namespace Stize.Hosting.AspNetCore.Formatting

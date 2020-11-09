@@ -8,6 +8,7 @@
     <MicrosoftCSharp>4.7.0</MicrosoftCSharp>
 	<SystemComponentModelAnnotations>4.7.0</SystemComponentModelAnnotations>
 	<SystemIOPipelines>4.7.3</SystemIOPipelines>
+	<SystemTextJson>4.7.2</SystemTextJson>
   </PropertyGroup>
 
   <PropertyGroup Label="AutoMapper">

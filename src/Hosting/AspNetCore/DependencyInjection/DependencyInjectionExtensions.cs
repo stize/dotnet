@@ -10,6 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddStizeAspNetCore(this IServiceCollection services)
         {
             services.AddHttpContextPrincipal();
+            services.AddTextJson();
             return services;
         }
 
