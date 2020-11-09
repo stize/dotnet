@@ -13,4 +13,8 @@
     <AutoMapper>10.1.1</AutoMapper>   
     <AutoMapperExtensionsMicrosoftDependencyInjection>8.1.0</AutoMapperExtensionsMicrosoftDependencyInjection>   
   </PropertyGroup> 
+  
+  <PropertyGroup Label="Entity Framework Core">    
+    <MicrosoftEntityFrameworkCore>3.1.9</MicrosoftEntityFrameworkCore>	
+  </PropertyGroup> 
 </Project>
