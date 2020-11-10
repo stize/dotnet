@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DotNet\Delta\Stize.DotNet.Delta.csproj" />
     <ProjectReference Include="..\..\Persistence\Repository.EFCore\Stize.Persistence.Repository.EFCore.csproj" />
     <ProjectReference Include="..\Core\Stize.Mapping.csproj" />
   </ItemGroup>

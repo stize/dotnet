@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Stize.Domain;
+using Stize.DotNet.Delta;
 using Stize.DotNet.Specification;
 using Stize.Persistence.Repository.EntityFrameworkCore;
 
@@ -45,6 +46,10 @@ namespace Stize.Mapping.Service
             where TEntity : class, IObject<TKey>;
 
         Task<TModel> ApplyChangesAsync<TModel, TEntity, TKey>(TModel model, CancellationToken cancellationToken = default)
+            where TModel : class, IObject<TKey>
+            where TEntity : class, IObject<TKey>;
+
+        Task<TModel> PatchAsync<TModel, TEntity, TKey>(Delta<TModel> delta, CancellationToken cancellationToken = default)
             where TModel : class, IObject<TKey>
             where TEntity : class, IObject<TKey>;
     }
@@ -151,6 +156,47 @@ namespace Stize.Mapping.Service
             return savedModel;
         }
 
+        public async Task<TModel> PatchAsync<TModel, TEntity, TKey>(Delta<TModel> delta, CancellationToken cancellationToken = default)
+            where TModel : class, IObject<TKey>
+            where TEntity : class, IObject<TKey>
+        {
+            var idName = nameof(IObject<TKey>.Id);
+            if (delta.GetChangedPropertyNames().Contains(idName))
+            {
+                if (delta.TryGetPropertyValue(idName, out var value))
+                {
+                    if (value is TKey id)
+                    {
+                        var entity = await this.repository.FindOneAsync<TEntity, TKey>(id, cancellationToken);
+                        if (entity != null)
+                        {
+                            var model = this.Mapper.Map<TEntity, TModel>(entity);
+                            delta.Patch(model);
+                            entity = this.Mapper.Map(model, entity);
+                            await this.repository.CommitAsync(cancellationToken);
+                            var savedModel = this.Mapper.Map<TEntity, TModel>(entity);
+                            return savedModel;
+                        }
+
+                        this.Logger.LogDebug($"The entity of type {typeof(TEntity).Name} with key {id} does not exits and can not be patched");
+                    }
+                    else
+                    {
+                        this.Logger.LogDebug($"The type of {value.GetType()} does not match the key type {typeof(TKey).Name} fot the entity type {typeof(TEntity).Name} and can not be patched");
+                    }
+                }
+                else
+                {
+                    this.Logger.LogDebug($"The delta of entity of type {typeof(TEntity).Name} does not have a key ({idName}) and can not be patched");
+                }
+            }
+            else
+            {
+                this.Logger.LogDebug($"The delta of entity of type {typeof(TEntity).Name} does not have a key property provided ({idName}) and can not be patched");
+            }
+
+            return null;
+        }
 
         private T Create<T>()
         {
