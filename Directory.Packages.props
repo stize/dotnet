@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup >
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	<TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  
+  <Import Project="External.Packages.props" />
+  
+</Project>

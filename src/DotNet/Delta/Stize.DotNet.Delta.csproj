@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Extensions\Stize.DotNet.Extensions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Common\SRResources.Designer.cs">
+      <DependentUpon>SRResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <EmbeddedResource Update="Common\SRResources.resx">
+      <LastGenOutput>SRResources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
