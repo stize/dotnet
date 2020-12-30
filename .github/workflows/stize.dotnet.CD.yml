@@ -1,11 +1,9 @@
-name: stize.dotnet.CI
+name: stize.dotnet.CD
 
 on:
   push:
-    branches-ignore:
-      - 'release/**'
-    tags:
-      - '**'
+    branches:
+      - 'release/*'
 
 jobs:
   build:
@@ -41,7 +39,7 @@ jobs:
             dotnet pack ${{ env.sln }} -p:PackageVersion=${{steps.version.outputs.version}}
 
             
-      - name: push private
+      - name: push nuget.org
         run: |
-            dotnet nuget add source https://nuget.pkg.github.com/stize/index.json -n github -u stize -p ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
-            until dotnet nuget push "./artifacts/build/*.nupkg" --source "github" --skip-duplicate --no-symbols true; do echo "Retrying"; sleep 1; done
+            until dotnet nuget push "./artifacts/build/*.nupkg" --api-key ${{ secrets.NUGETORG_API_KEY }} --skip-duplicate --source https://api.nuget.org/v3/index.json; do echo "Retrying"; sleep 1; done
+            until dotnet nuget push "./artifacts/build/*.snupkg" --api-key ${{ secrets.NUGETORG_API_KEY }} --skip-duplicate --source https://api.nuget.org/v3/index.json; do echo "Retrying"; sleep 1; done
