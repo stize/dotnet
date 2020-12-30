@@ -2,8 +2,6 @@ name: stize.dotnet.CI
 
 on:
   push:
-    branches-ignore:
-      - 'release/**'
     tags:
       - '**'
 
