@@ -1,4 +1,4 @@
-name: stize.dotnet-CD
+name: stize.dotnet.CI
 
 on:
   push:
