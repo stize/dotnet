@@ -1,15 +1,38 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Stize.DotNet.Search.Sort;
 using Stize.DotNet.Specification;
+using Stize.Persistence.Mediator;
+using Stize.Persistence.QueryResult;
 
 namespace Stize.Persistence.Query
 {
-    public interface IQuery
+    public interface IQuery<TResult> : IRequest<TResult>
+        where TResult : IQueryResult
     {
+       
     }
 
-    public interface IQuery<T> : IQuery
-        where T : class
+    public interface IQuery<TSource, TTarget, TResult> : IQuery<TResult>
+        where TSource : class
+        where TTarget : class
+        where TResult : IQueryResult<TTarget>
     {
-        ISpecification<T> Specification { get; }
+        
+        public IQueryableProvider Provider { get; set; }
+        public IQueryable<TSource> SourceQuery { get; set; }
+
+        ISpecification<TSource> SourceSpecification { get; }
+        ISpecification<TTarget> TargetSpecification { get; }
+
+        public IEnumerable<SortDescriptor> SourceSorts { get; }
+        public IEnumerable<SortDescriptor> TargetSorts { get; }
+
+        
     }
+
+
+
 }

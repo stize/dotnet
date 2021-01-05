@@ -7,28 +7,32 @@ using Stize.Persistence.QueryResult;
 
 namespace Stize.Persistence.QueryHandler
 {
-    public class PagedValueQueryHandler<TQuery, TSource, TTarget, TResult> : QueryHandler<TQuery, TSource, TTarget, TResult>, IPagedValueQueryHandler<TQuery, TSource, TTarget, TResult>
-        where TQuery : PagedQuery<TSource>
+
+    public abstract class PagedValueQueryHandlerBase<TQuery, TSource, TTarget, TResult>
+       : QueryHandler<TQuery, TSource, TTarget, TResult>
+        where TQuery : PagedValueQuery<TSource, TTarget>, IQuery<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
         where TResult : PagedQueryResult<TTarget>, new()
     {
         private int count;
 
-        public PagedValueQueryHandler(IMaterializer<TSource, TTarget> materializer, IQueryableProvider provider) : base(materializer, provider)
+        protected PagedValueQueryHandlerBase(IMaterializer<TSource, TTarget> materializer) : base(materializer)
         {
         }
 
-        protected override async Task<IQueryable<TSource>> RunQueryAsync(CancellationToken cancellationToken = default)
+        protected override async Task<IQueryable<TTarget>> ExecuteQueryAsync(TQuery query, CancellationToken cancellationToken)
         {
-            var queryable = await base.RunQueryAsync(cancellationToken);
-            this.count = await this.Provider.CountAsync(queryable, cancellationToken);
-            var sorted = this.Sort(queryable);
-            var paginated = this.Paginate(sorted);
+            var queryable = await base.ExecuteQueryAsync(query, cancellationToken);
+
+            this.count = await this.Query.Provider.CountAsync(queryable, cancellationToken);
+
+            var paginated = this.Paginate(queryable);
+
             return paginated;
         }
 
-        protected virtual IQueryable<TSource> Paginate(IQueryable<TSource> queryable)
+        protected virtual IQueryable<TTarget> Paginate(IQueryable<TTarget> queryable)
         {
             if (this.Query.Skip.HasValue)
             {
@@ -42,16 +46,10 @@ namespace Stize.Persistence.QueryHandler
 
             return queryable;
         }
-
-        protected virtual IQueryable<TSource> Sort(IQueryable<TSource> queryable)
-        {
-            var effectiveSort = this.Query.Sorts.ToArray();
-            return queryable.Sort(effectiveSort);
-        }
-
+        
         protected override async Task<TResult> GenerateResultAsync(IQueryable<TTarget> queryable, CancellationToken cancellationToken = default)
         {
-            var values = await this.Provider.ToArrayAsync(queryable, cancellationToken);
+            var values = await this.Query.Provider.ToArrayAsync(queryable, cancellationToken);
             var result = new TResult
             {
                 Result = values,
@@ -63,12 +61,21 @@ namespace Stize.Persistence.QueryHandler
         }
     }
 
-    public class PagedValueQueryHandler<TQuery, TSource, TResult> : PagedValueQueryHandler<TQuery, TSource, TSource, TResult>, IPagedValueQueryHandler<TQuery, TSource, TResult>
-        where TQuery : PagedQuery<TSource>
+    public class PagedValueQueryHandler<TSource, TTarget>
+        : PagedValueQueryHandlerBase<PagedValueQuery<TSource, TTarget>, TSource, TTarget, PagedQueryResult<TTarget>>
         where TSource : class
-        where TResult : PagedQueryResult<TSource>, new()
+        where TTarget : class
     {
-        public PagedValueQueryHandler(IMaterializer<TSource> materializer, IQueryableProvider provider) : base(materializer, provider)
+        public PagedValueQueryHandler(IMaterializer<TSource, TTarget> materializer) : base(materializer)
+        {
+        }
+    }
+
+    public class PagedValueQueryHandler<TSource>
+        : PagedValueQueryHandlerBase<PagedValueQuery<TSource>, TSource, TSource, PagedQueryResult<TSource>>
+        where TSource : class
+    {
+        public PagedValueQueryHandler(IMaterializer<TSource> materializer) : base(materializer)
         {
         }
     }

@@ -1,9 +1,8 @@
-﻿using System;
-
-namespace Stize.Persistence.QueryResult
+﻿namespace Stize.Persistence.QueryResult
 {
-    public class SingleQueryResult<T> : QueryResult<T>, ISingleQueryResult<T> 
+    public class SingleQueryResult<T> : QueryResult<T>
         where T : class
     {
+        public T Result { get; set; }
     }
 }

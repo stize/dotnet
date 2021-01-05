@@ -6,8 +6,8 @@ namespace Stize.Persistence.QueryResult
     {
     }
 
-    public interface IQueryResult<T> : IQueryResult
+    public interface IQueryResult<out TTarget> : IQueryResult
     {
-        T Result { get; set; }
+
     }
 }

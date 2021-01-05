@@ -7,30 +7,41 @@ using Stize.Persistence.QueryResult;
 
 namespace Stize.Persistence.QueryHandler
 {
-    public class MultipleValueQueryHandler<TQuery, TSource, TTarget, TResult> : QueryHandler<TQuery, TSource, TTarget, TResult>, IMultipleValueQueryHandler<TQuery, TSource, TTarget, TResult>
-        where TQuery : Query<TSource>
+    public abstract class MultipleValueQueryHandlerBase<TQuery, TSource, TTarget, TResult> 
+        : QueryHandler<TQuery, TSource, TTarget, TResult>
+        where TQuery:  MultipleValueQuery<TSource, TTarget>, IQuery<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
         where TResult : MultipleQueryResult<TTarget>, new()
     {
-        public MultipleValueQueryHandler(IMaterializer<TSource, TTarget> materializer, IQueryableProvider provider) : base(materializer,provider)
+        protected MultipleValueQueryHandlerBase(IMaterializer<TSource, TTarget> materializer) : base(materializer)
         {
         }
         
         protected override async Task<TResult> GenerateResultAsync(IQueryable<TTarget> queryable, CancellationToken cancellationToken = default)
         {
-            var values = await this.Provider.ToArrayAsync(queryable, cancellationToken);
+            var values = await this.Query.Provider.ToArrayAsync(queryable, cancellationToken);
             var result = new TResult { Result = values };
             return result;
         }
     }
 
-    public class MultipleValueQueryHandler<TQuery, TSource, TResult> : MultipleValueQueryHandler<TQuery, TSource, TSource, TResult>, IMultipleValueQueryHandler<TQuery, TSource, TResult>
-        where TQuery : Query<TSource>
+    public class MultipleValueQueryHandler<TSource, TTarget> 
+        : MultipleValueQueryHandlerBase<MultipleValueQuery<TSource, TTarget>, TSource, TTarget, MultipleQueryResult<TTarget>>
         where TSource : class
-        where TResult : MultipleQueryResult<TSource>, new()
+        where TTarget : class
     {
-        public MultipleValueQueryHandler(IMaterializer<TSource> materializer, IQueryableProvider provider) : base(materializer, provider)
+        public MultipleValueQueryHandler(IMaterializer<TSource, TTarget> materializer) : base(materializer)
+        {
+        }
+
+    }
+
+    public class MultipleValueQueryHandler<TSource> 
+        : MultipleValueQueryHandlerBase<MultipleValueQuery<TSource>, TSource, TSource, MultipleQueryResult<TSource>>
+        where TSource : class
+    {
+        public MultipleValueQueryHandler(IMaterializer<TSource> materializer) : base(materializer)
         {
         }
     }

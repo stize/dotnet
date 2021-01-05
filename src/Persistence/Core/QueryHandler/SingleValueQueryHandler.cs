@@ -7,31 +7,44 @@ using Stize.Persistence.QueryResult;
 
 namespace Stize.Persistence.QueryHandler
 {
-    public class SingleValueQueryHandler<TQuery, TSource, TTarget, TResult> : QueryHandler<TQuery, TSource, TTarget, TResult>, ISingleValueQueryHandler<TQuery, TSource, TTarget, TResult>
-        where TQuery : Query<TSource>
+    public abstract class SingleValueQueryHandlerBase<TQuery, TSource, TTarget, TResult>
+        : QueryHandler<TQuery, TSource, TTarget, TResult>
+        where TQuery:  SingleValueQuery<TSource, TTarget>, IQuery<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
         where TResult : SingleQueryResult<TTarget>, new()
     {
-        public SingleValueQueryHandler(IMaterializer<TSource, TTarget> materializer, IQueryableProvider provider) : base(materializer, provider)
+        protected SingleValueQueryHandlerBase(IMaterializer<TSource, TTarget> materializer) : base(materializer)
         {
         }
 
         protected override async Task<TResult> GenerateResultAsync(IQueryable<TTarget> queryable, CancellationToken cancellationToken = default)
         {
-            var value = await this.Provider.SingleOrDefaultAsync(queryable, cancellationToken);
-            var result = new TResult { Result = value };
+            var value = await this.Query.Provider.SingleOrDefaultAsync(queryable, cancellationToken);
+            var result = new TResult() { Result = value };
             return result;
         }
     }
 
-    public class SingleValueQueryHandler<TQuery, TSource, TResult> : SingleValueQueryHandler<TQuery, TSource, TSource, TResult>, ISingleValueQueryHandler<TQuery, TSource, TResult>
-        where TQuery : Query<TSource>
+    public class SingleValueQueryHandler<TSource, TTarget> 
+        : SingleValueQueryHandlerBase<SingleValueQuery<TSource, TTarget>, TSource, TTarget, SingleQueryResult<TTarget>>
         where TSource : class
-        where TResult : SingleQueryResult<TSource>, new()
+        where TTarget : class
     {
-        public SingleValueQueryHandler(IMaterializer<TSource> materializer, IQueryableProvider provider) : base(materializer, provider)
+        public SingleValueQueryHandler(IMaterializer<TSource, TTarget> materializer) : base(materializer)
         {
         }
+        
+        
+    }
+
+    public class SingleValueQueryHandler<TSource> 
+        : SingleValueQueryHandlerBase<SingleValueQuery<TSource>, TSource, TSource, SingleQueryResult<TSource>>
+        where TSource : class
+    {
+        public SingleValueQueryHandler(IMaterializer<TSource> materializer) : base(materializer)
+        {
+        }
+        
     }
 }

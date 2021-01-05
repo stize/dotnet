@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using Stize.Domain.Model;
 using Stize.DotNet.Json;
-using Stize.Persistence.QueryResult;
+using Stize.DotNet.Result;
 
 namespace Stize.Hosting.AspNetCore.ActionResult
 {
@@ -26,10 +26,10 @@ namespace Stize.Hosting.AspNetCore.ActionResult
     public class PagedJsonResult<T> : PagedJsonResult, IActionResult
         where T : class
     {
-        private readonly IPagedQueryResult<T> content;
+        private readonly PaginatedResult<T> content;
         private readonly bool envelope;
 
-        public PagedJsonResult(IPagedQueryResult<T> content, bool envelope)
+        public PagedJsonResult(PaginatedResult<T> content, bool envelope)
         {
             this.content = content;
             this.envelope = envelope;
@@ -102,13 +102,13 @@ namespace Stize.Hosting.AspNetCore.ActionResult
         public virtual object GetContent()
         {
             return !this.envelope
-                ? (object)this.content.Result
+                ? (object)this.content.Value
                 : new EnvelopedModel<T>
                 {
                     Take = this.content.Take,
                     Skip = this.content.Skip,
                     Total = this.content.Total,
-                    Data = this.content.Result
+                    Data = this.content.Value
                 };
         }
     }

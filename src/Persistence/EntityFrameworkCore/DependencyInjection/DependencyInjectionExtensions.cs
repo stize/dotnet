@@ -27,9 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 throw new ArgumentNullException(nameof(services));
             }
 
-            services.AddDbContextAccessor(ServiceLifetime.Scoped);
             services.AddEntityRepository(ServiceLifetime.Scoped);
-            services.AddQueryableProvider(ServiceLifetime.Scoped);
 
             return services;
         }
@@ -39,22 +37,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Add(new ServiceDescriptor(typeof(DbContext), provider => provider.GetService(dbContextType), lifetime));
             return services;
         }
-
-        public static IServiceCollection AddDbContextAccessor(this IServiceCollection services, ServiceLifetime lifetime)
-        {
-            services.Add(new ServiceDescriptor(typeof(IDbContextAccessor), typeof(DbContextAccessor), lifetime));
-            return services;
-        }
-
+        
         public static IServiceCollection AddEntityRepository(this IServiceCollection services, ServiceLifetime lifetime)
         {
             services.Add(new ServiceDescriptor(typeof(IEntityRepository<>), typeof(EntityRepository<>), lifetime));
-            return services;
-        }
-
-        public static IServiceCollection AddQueryableProvider(this IServiceCollection services, ServiceLifetime lifetime)
-        {
-            services.Add(new ServiceDescriptor(typeof(IQueryableProvider), typeof(QueryableProvider), lifetime));
             return services;
         }
 

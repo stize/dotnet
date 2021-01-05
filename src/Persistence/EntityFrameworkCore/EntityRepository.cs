@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Stize.Domain;
 using Stize.DotNet.Specification;
+using Stize.Persistence.Mediator;
 using Stize.Persistence.Query;
 using Stize.Persistence.QueryResult;
 
@@ -15,15 +16,16 @@ namespace Stize.Persistence.EntityFrameworkCore
     public class EntityRepository<TContext> : IEntityRepository<TContext>
     where TContext : DbContext
     {
-        private readonly IDbContextAccessor accessor;
+        private readonly TContext context;
 
-        public TContext Context => this.accessor.GetCurrentContext<TContext>();
+        private readonly IMediator mediator;
 
-        private IDbContextTransaction Tx => this.Context.Database.CurrentTransaction;
+        private IDbContextTransaction Tx => this.context.Database.CurrentTransaction;
 
-        public EntityRepository(IDbContextAccessor accessor)
+        public EntityRepository(TContext dbContext, IMediator mediator)
         {
-            this.accessor = accessor;
+            this.mediator = mediator;
+            this.context = dbContext;
         }
 
         public virtual IQueryable<T> GetAll<T>() where T : class
@@ -33,13 +35,13 @@ namespace Stize.Persistence.EntityFrameworkCore
 
         public virtual T Add<T>(T entity) where T : class
         {
-            var entry = this.Context.Set<T>().Add(entity);
+            var entry = this.context.Set<T>().Add(entity);
             return entry.Entity;
         }
 
         public virtual void Remove<T>(T entity) where T : class
         {
-            this.Context.Set<T>().Remove(entity);
+            this.context.Set<T>().Remove(entity);
         }
 
         public virtual IQueryable<T> Where<T>(ISpecification<T> specification) where T : class
@@ -52,13 +54,13 @@ namespace Stize.Persistence.EntityFrameworkCore
         {
             if (this.Tx == null)
             {
-                await this.Context.Database.BeginTransactionAsync(cancellationToken);
+                await this.context.Database.BeginTransactionAsync(cancellationToken);
             }
         }
 
         public virtual async Task CommitAsync(CancellationToken cancellationToken = default)
         {
-            await this.Context.SaveChangesAsync(cancellationToken);
+            await this.context.SaveChangesAsync(cancellationToken);
 
             if (this.Tx != null)
             {
@@ -76,14 +78,14 @@ namespace Stize.Persistence.EntityFrameworkCore
 
         }
 
-        public virtual Task<T> FindOneAsync<T, TKey>(TKey key, CancellationToken cancellationToken = default) 
+        public virtual Task<T> FindOneAsync<T, TKey>(TKey key, CancellationToken cancellationToken = default)
             where T : class, IObject<TKey>
         {
             var queryable = this.GetQuery<T>().Where(ExpressionExtensions.Equals<T, TKey>(ExpressionExtensions.GetPropertyName<T, TKey>(e => e.Id), key));
             return queryable.FirstOrDefaultAsync(cancellationToken);
         }
 
-        public virtual async Task RemoveAsync<T, TKey>(TKey key, CancellationToken cancellationToken = default) 
+        public virtual async Task RemoveAsync<T, TKey>(TKey key, CancellationToken cancellationToken = default)
             where T : class, IObject<TKey>
         {
             var entity = await this.FindOneAsync<T, TKey>(key, cancellationToken);
@@ -92,11 +94,23 @@ namespace Stize.Persistence.EntityFrameworkCore
                 throw new ArgumentException(nameof(key));
             }
             this.Remove(entity);
+
         }
+
+        public virtual Task<TResult> RunQueryAsync<TSource, TTarget, TResult>(IQuery<TSource, TTarget, TResult> query, CancellationToken cancellationToken = default)
+            where TSource : class
+            where TTarget : class
+            where TResult : class, IQueryResult<TTarget>
+        {
+            query.Provider = EfQueryableProvider.Instance;
+            query.SourceQuery = this.GetQuery<TSource>();
+            return this.mediator.HandleAsync(query, cancellationToken);
+        }
+
 
         protected virtual IQueryable<T> GetQuery<T>() where T : class
         {
-            return this.Context.Set<T>();
+            return this.context.Set<T>();
         }
 
     }

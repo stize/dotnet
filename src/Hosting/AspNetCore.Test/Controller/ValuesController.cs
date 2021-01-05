@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Stize.Domain.Model;
+using Stize.DotNet.Result;
 using Stize.Hosting.AspNetCore.Extensions;
 using Stize.Hosting.AspNetCore.Test.Model;
 using Stize.Persistence.QueryResult;
@@ -33,11 +34,8 @@ namespace Stize.Hosting.AspNetCore.Test.Controller
         [HttpGet("paginated")]
         public IActionResult GetPaginated()
         {
-            var page = new PagedQueryResult<object>()
-            {
-                Result = new object[]{ 1, 2, 3 }.AsEnumerable(),
-                Total = 3
-            };
+            var page = PaginatedResult<object>.Ok(new object[] {1, 2, 3}).WithTotal(3);
+            
             return this.PagedJsonResult(page, true);
         }
 

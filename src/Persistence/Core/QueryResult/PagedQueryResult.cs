@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Stize.Persistence.QueryResult
 {
-    public class PagedQueryResult<T> : MultipleQueryResult<T>, IPagedQueryResult<T> 
+    public class PagedQueryResult<T> : MultipleQueryResult<T>
         where T : class
     {
 

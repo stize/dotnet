@@ -7,11 +7,10 @@ using Stize.DotNet.Specification;
 
 namespace Stize.Persistence.EntityFrameworkCore
 {
-    public interface IEntityRepository<out TContext>
+    public interface IEntityRepository<TContext>
         where TContext : DbContext
     {
-        public TContext Context { get; }
-
+        
         public IQueryable<T> GetAll<T>() where T : class;
 
         public T Add<T>(T entity) where T : class;

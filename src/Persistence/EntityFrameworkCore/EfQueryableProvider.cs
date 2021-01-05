@@ -7,21 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Stize.Persistence.EntityFrameworkCore
 {
-    public class QueryableProvider : IQueryableProvider
+    public class EfQueryableProvider : IQueryableProvider
     {
-        private readonly IServiceProvider serviceProvider;
 
-        public QueryableProvider(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider;
-        }
-
-        public IQueryable<T> GetQueryable<T>() where T : class
-        {
-            var context = this.GetContextByTargetEntityType<T>();
-            var queryable = context.Set<T>();
-            return queryable;
-        }
+        public static IQueryableProvider Instance { get; } = new EfQueryableProvider();
 
         public Task<T> SingleOrDefaultAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken = default) where T : class
         {
@@ -38,11 +27,5 @@ namespace Stize.Persistence.EntityFrameworkCore
             return queryable.CountAsync(cancellationToken: cancellationToken);
         }
 
-        private DbContext GetContextByTargetEntityType<T>() where T : class
-        {
-            var contexts = this.serviceProvider.GetServices<DbContext>();
-            var context = contexts.FirstOrDefault(x => x.Model.FindEntityType(typeof(T)) != null);
-            return context;
-        }
     }
 }

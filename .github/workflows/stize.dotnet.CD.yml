@@ -1,0 +1,44 @@
+name: stize.dotnet.CD
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      sln: './src/Stize.sln'
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+                   
+      - uses: actions/setup-dotnet@v1
+        name: setup dotnet
+        with:
+            dotnet-version: '5.0.100' # SDK Version to use;
+            
+      - uses: thefringeninja/action-minver@2.0.0-preview1
+        name: run minver
+        id: version        
+              
+      - name: build
+        run: |
+            dotnet build ${{ env.sln }}
+            
+      - name: test
+        run: |
+            dotnet test ${{ env.sln }}
+
+      - name: pack
+        run: |
+            dotnet pack ${{ env.sln }} -p:PackageVersion=${{steps.version.outputs.version}}
+
+            
+      - name: push nuget.org
+        run: |
+            until dotnet nuget push "./artifacts/build/*.nupkg" --api-key ${{ secrets.NUGETORG_API_KEY }} --skip-duplicate --source https://api.nuget.org/v3/index.json; do echo "Retrying"; sleep 1; done
+            until dotnet nuget push "./artifacts/build/*.snupkg" --api-key ${{ secrets.NUGETORG_API_KEY }} --skip-duplicate --source https://api.nuget.org/v3/index.json; do echo "Retrying"; sleep 1; done
