@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Stize.Domain;
 using Stize.DotNet.Specification;
+using Stize.Persistence.Query;
+using Stize.Persistence.QueryResult;
 
 namespace Stize.Persistence.EntityFrameworkCore
 {
@@ -28,6 +30,11 @@ namespace Stize.Persistence.EntityFrameworkCore
         public Task<T> FindOneAsync<T, TKey>(TKey key, CancellationToken cancellationToken = default) where T : class, IObject<TKey>;
 
         public Task RemoveAsync<T, TKey>(TKey key, CancellationToken cancellationToken = default) where T : class, IObject<TKey>;
+
+        Task<TResult> RunQueryAsync<TSource, TTarget, TResult>(IQuery<TSource, TTarget, TResult> query, CancellationToken cancellationToken = default)
+            where TSource : class
+            where TTarget : class
+            where TResult : class, IQueryResult<TTarget>;
     }
 
 }
