@@ -1,36 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Stize.Persistence.Mediator
+namespace Stize.Persistence.QueryDispatcher
 {
-    public class RequestHandlerFactory : IRequestHandlerFactory
+    public class QueryHandlerFactory : IQueryHandlerFactory
     {
-        private readonly ILogger<RequestHandlerFactory> logger;
-        private readonly RequestHandlerFactoryOptions options;
+        private readonly ILogger<QueryHandlerFactory> logger;
+        private readonly QuerytHandlerFactoryOptions options;
         private readonly IServiceProvider provider;
 
-        public RequestHandlerFactory(ILogger<RequestHandlerFactory> logger, IOptions<RequestHandlerFactoryOptions> options, IServiceProvider provider)
+        public QueryHandlerFactory(ILogger<QueryHandlerFactory> logger, IOptions<QuerytHandlerFactoryOptions> options, IServiceProvider provider)
         {
             this.logger = logger;
             this.options = options.Value;
             this.provider = provider;
         }
 
-        public IRequestHandler<TRequest, TResponse> GetHandler<TRequest, TResponse>()
-            where TRequest : IRequest<TResponse>
+        public IQueryRequestHandler<TRequest, TResponse> GetHandler<TRequest, TResponse>()
+            where TRequest : IQueryRequest<TResponse>
         {
-            var targetHandler = typeof(IRequestHandler<TRequest, TResponse>);
+            var targetHandler = typeof(IQueryRequestHandler<TRequest, TResponse>);
             var effectiveHandlerTypes = new List<Type>();
 
-            foreach (var handler in this.options.QueryHandlers)
+            foreach (var handler in options.QueryHandlers)
             {
                 if (handler.IsGenericTypeDefinition)
                 {
-                    this.CheckGenericDefinitionHandler<TRequest, TResponse>(handler, effectiveHandlerTypes);
+                    CheckGenericDefinitionHandler<TRequest, TResponse>(handler, effectiveHandlerTypes);
                 }
                 else if (targetHandler == handler)
                 {
@@ -38,7 +37,7 @@ namespace Stize.Persistence.Mediator
                 }
                 else
                 {
-                    this.logger.LogDebug($"Handler {handler.Name } can not be assigned to {targetHandler.Name}");
+                    logger.LogDebug($"Handler {handler.Name } can not be assigned to {targetHandler.Name}");
                 }
 
             }
@@ -55,14 +54,14 @@ namespace Stize.Persistence.Mediator
 
             var effectiveHandlerType = effectiveHandlerTypes.First();
 
-            var effectiveHandler = this.provider.GetService(effectiveHandlerType);
-            var e = effectiveHandler as IRequestHandler<TRequest, TResponse>;
+            var effectiveHandler = provider.GetService(effectiveHandlerType);
+            var e = effectiveHandler as IQueryRequestHandler<TRequest, TResponse>;
 
             return e;
         }
 
         private void CheckGenericDefinitionHandler<TRequest, TResponse>(Type handler, List<Type> effectiveHandlers)
-            where TRequest : IRequest<TResponse>
+            where TRequest : IQueryRequest<TResponse>
         {
             var rQueryType = typeof(TRequest);
             var rQueryOfDefinition = rQueryType.GetGenericTypeDefinition();
@@ -72,10 +71,10 @@ namespace Stize.Persistence.Mediator
             var rQueryResultOfDefinition = rQueryResultType.GetGenericTypeDefinition();
             var rTargetType = rQueryResultType.GetGenericArguments();
 
-            var iQueryHandlerInterface = handler.GetInterfaces().FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>));
+            var iQueryHandlerInterface = handler.GetInterfaces().FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IQueryRequestHandler<,>));
             if (iQueryHandlerInterface == null)
             {
-                this.logger.LogWarning($"Registered handler {handler.Name} does not implement {typeof(IRequestHandler<,>)}, ignoring it");
+                logger.LogWarning($"Registered handler {handler.Name} does not implement {typeof(IQueryRequestHandler<,>)}, ignoring it");
                 return;
             }
 
@@ -85,33 +84,14 @@ namespace Stize.Persistence.Mediator
 
             var hQueryResultOf = iQueryHandlerInterface.GenericTypeArguments[1];
             var hQueryResultOfDefinition = hQueryResultOf.GetGenericTypeDefinition();
-            
+
             if (rQueryOfDefinition == hQueryOfDefinition && rQueryResultOfDefinition == hQueryResultOfDefinition)
             {
                 var hConcrete = handler.MakeGenericType(rSourceType);
                 effectiveHandlers.Add(hConcrete);
             }
-           
+
         }
 
-    }
-
-    public class RequestHandlerFactoryOptions
-    {
-        private readonly IList<Type> queryHandlers = new Collection<Type>();
-
-        public IEnumerable<Type> QueryHandlers => new ReadOnlyCollection<Type>(this.queryHandlers);
-
-        public void AddHandler(Type handlerType)
-        {
-            if (handlerType == null) throw new ArgumentNullException(nameof(handlerType));
-
-            var t = typeof(IRequestHandler<,>);
-            if (!handlerType.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == t))
-            {
-                throw new ArgumentException($"The type {handlerType.Name} does not implements {t.Name}");
-            }
-            this.queryHandlers.Insert(0, handlerType);
-        }
     }
 }
