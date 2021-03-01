@@ -33,7 +33,7 @@
   
   <ItemGroup Label="AutoMapper">
     <PackageVersion Include="AutoMapper" Version="10.1.1" />
-    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
   </ItemGroup>
   
     <ItemGroup Label="Newtonsoft.Json">
