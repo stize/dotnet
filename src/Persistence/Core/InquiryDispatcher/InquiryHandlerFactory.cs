@@ -70,11 +70,11 @@ namespace Stize.Persistence.InquiryDispatcher
         {
             var rInquiryType = typeof(TInquiry);
             var rInquiryOfDefinition = rInquiryType.GetGenericTypeDefinition();
-            var rSourceType = rInquiryType.GetGenericArguments();
+            var rInquiryArguments = rInquiryType.GetGenericArguments();
 
             var rInquiryResultType = typeof(TResponse);
             var rInquiryResultOfDefinition = rInquiryResultType.GetGenericTypeDefinition();
-            var rTargetType = rInquiryResultType.GetGenericArguments();
+            var rInquiryResultArguments = rInquiryResultType.GetGenericArguments();
 
             var iInquiryHandlerInterface = handler.GetInterfaces().FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IInquiryHandler<,>));
             if (iInquiryHandlerInterface == null)
@@ -86,13 +86,12 @@ namespace Stize.Persistence.InquiryDispatcher
             var hInquiryOf = iInquiryHandlerInterface.GenericTypeArguments[0];
             var hInquiryOfDefinition = hInquiryOf.GetGenericTypeDefinition();
 
-
             var hInquiryResultOf = iInquiryHandlerInterface.GenericTypeArguments[1];
             var hInquiryResultOfDefinition = hInquiryResultOf.GetGenericTypeDefinition();
 
             if (rInquiryOfDefinition == hInquiryOfDefinition && rInquiryResultOfDefinition == hInquiryResultOfDefinition)
             {
-                var hConcrete = handler.MakeGenericType(rSourceType);
+                var hConcrete = handler.MakeGenericType(rInquiryArguments);
                 effectiveHandlers.Add(hConcrete);
             }
 
