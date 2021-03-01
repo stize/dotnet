@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 
-namespace Stize.Persistence.QueryResult
+namespace Stize.Persistence.InquiryResult
 {
-    public class MultipleQueryResult<T> : QueryResult<T>
+    public class MultipleInquiryResult<T> : InquiryResult<T>
         where T : class
     {
         public IEnumerable<T> Result { get; set; }
