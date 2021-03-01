@@ -2,37 +2,37 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Stize.Persistence.Materializer;
-using Stize.Persistence.Query;
-using Stize.Persistence.QueryResult;
+using Stize.Persistence.Inquiry;
+using Stize.Persistence.InquiryResult;
 
-namespace Stize.Persistence.QueryHandler
+namespace Stize.Persistence.InquiryHandler
 {
-    public abstract class QueryHandler<TQuery, TSource, TTarget, TResult> : IQueryHandler<TQuery, TSource, TTarget, TResult>
-        where TQuery : IQuery<TSource, TTarget, TResult>
+    public abstract class InquiryHandler<TInquiry, TSource, TTarget, TResult> : IInquiryHandler<TInquiry, TSource, TTarget, TResult>
+        where TInquiry : IInquiry<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
-        where TResult : IQueryResult<TTarget>
+        where TResult : IInquiryResult<TTarget>
     {
-        protected QueryHandler(IMaterializer<TSource, TTarget> materializer)
+        protected InquiryHandler(IMaterializer<TSource, TTarget> materializer)
         {
             this.Materializer = materializer;
         }
 
         protected IMaterializer<TSource, TTarget> Materializer { get; }
 
-        protected TQuery Query { get; set; }
+        protected TInquiry Inquiry { get; set; }
 
-        public virtual async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken = default)
+        public virtual async Task<TResult> HandleAsync(TInquiry inquiry, CancellationToken cancellationToken = default)
         {
-            var queryable = await this.ExecuteQueryAsync(query, cancellationToken);
+            var queryable = await this.ExecuteQueryAsync(inquiry, cancellationToken);
 
             var result = await this.GenerateResultAsync(queryable, cancellationToken);
             return result;
         }
 
-        protected virtual async Task<IQueryable<TTarget>> ExecuteQueryAsync(TQuery query, CancellationToken cancellationToken = default)
+        protected virtual async Task<IQueryable<TTarget>> ExecuteQueryAsync(TInquiry inquiry, CancellationToken cancellationToken = default)
         {
-            this.Query = query;
+            this.Inquiry = inquiry;
             var queryable = await this.GetSourceQueryAsync(cancellationToken);
 
             var sorted = await this.SortAsync(queryable, cancellationToken);
@@ -47,15 +47,15 @@ namespace Stize.Persistence.QueryHandler
 
         protected virtual Task<IQueryable<TSource>> GetSourceQueryAsync(CancellationToken cancellationToken = default)
         {
-            var query = this.Query.SourceQuery;
+            var query = this.Inquiry.SourceQuery;
             return Task.FromResult(query);
         }
 
         protected virtual Task<IQueryable<TSource>> FilterAsync(IQueryable<TSource> queryable, CancellationToken cancellationToken = default)
         {
-            if (this.Query.SourceSpecification != null)
+            if (this.Inquiry.SourceSpecification != null)
             {
-                queryable = queryable.Where(this.Query.SourceSpecification);
+                queryable = queryable.Where(this.Inquiry.SourceSpecification);
             }
                 
             return Task.FromResult(queryable);
@@ -63,9 +63,9 @@ namespace Stize.Persistence.QueryHandler
 
         protected virtual Task<IQueryable<TTarget>> FilterAsync(IQueryable<TTarget> queryable, CancellationToken cancellationToken = default)
         {
-            if (this.Query.TargetSpecification != null)
+            if (this.Inquiry.TargetSpecification != null)
             {
-                queryable = queryable.Where(this.Query.TargetSpecification);
+                queryable = queryable.Where(this.Inquiry.TargetSpecification);
             }
                 
             return Task.FromResult(queryable);
@@ -73,9 +73,9 @@ namespace Stize.Persistence.QueryHandler
 
         protected virtual Task<IQueryable<TSource>> SortAsync(IQueryable<TSource> queryable, CancellationToken cancellationToken = default)
         {
-            if (this.Query.SourceSorts != null)
+            if (this.Inquiry.SourceSorts != null)
             {
-                var effectiveSort = this.Query.SourceSorts.ToArray();
+                var effectiveSort = this.Inquiry.SourceSorts.ToArray();
                 queryable = queryable.Sort(effectiveSort);
             }
 
@@ -84,9 +84,9 @@ namespace Stize.Persistence.QueryHandler
 
         protected virtual Task<IQueryable<TTarget>> SortAsync(IQueryable<TTarget> queryable, CancellationToken cancellationToken = default)
         {
-            if (this.Query.TargetSorts != null)
+            if (this.Inquiry.TargetSorts != null)
             {
-                var effectiveSort = this.Query.TargetSorts.ToArray();
+                var effectiveSort = this.Inquiry.TargetSorts.ToArray();
                 queryable = queryable.Sort(effectiveSort);
             }
 

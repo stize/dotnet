@@ -2,20 +2,20 @@
 using System.Linq;
 using Stize.DotNet.Search.Sort;
 using Stize.DotNet.Specification;
-using Stize.Persistence.QueryResult;
+using Stize.Persistence.InquiryResult;
 
-namespace Stize.Persistence.Query
+namespace Stize.Persistence.Inquiry
 {
-    public abstract class Query<TResult> : IQuery<TResult>
-        where TResult : IQueryResult
+    public abstract class Inquiry<TResult> : IInquiry<TResult>
+        where TResult : IInquiryResult
     {
         
     }
 
-    public abstract class Query<TSource, TTarget, TResult> : Query<TResult>, IQuery<TSource, TTarget, TResult>
+    public abstract class Inquiry<TSource, TTarget, TResult> : Inquiry<TResult>, IInquiry<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
-        where TResult : IQueryResult<TTarget>
+        where TResult : IInquiryResult<TTarget>
     {
 
         public IQueryable<TSource> SourceQuery { get; set; }

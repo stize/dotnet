@@ -1,24 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Stize.DotNet.Search.Sort;
 using Stize.DotNet.Specification;
-using Stize.Persistence.QueryDispatcher;
-using Stize.Persistence.QueryResult;
+using Stize.Persistence.InquiryResult;
 
-namespace Stize.Persistence.Query
+namespace Stize.Persistence.Inquiry
 {
-    public interface IQuery<TResult> : IQueryRequest<TResult>
-        where TResult : IQueryResult
+    public interface IInquiry<TResult>
+        where TResult : IInquiryResult
     {
        
     }
 
-    public interface IQuery<TSource, TTarget, TResult> : IQuery<TResult>
+    public interface IInquiry<TSource, TTarget, TResult> : IInquiry<TResult>
         where TSource : class
         where TTarget : class
-        where TResult : IQueryResult<TTarget>
+        where TResult : IInquiryResult<TTarget>
     {
         
         public IQueryableProvider Provider { get; set; }

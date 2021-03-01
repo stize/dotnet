@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Stize.Persistence.QueryResult
+﻿namespace Stize.Persistence.InquiryResult
 {
-    public class PagedQueryResult<T> : MultipleQueryResult<T>
+    public class PagedInquiryResult<T> : MultipleInquiryResult<T>
         where T : class
     {
 
