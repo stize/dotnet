@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DotNet\Json\Stize.DotNet.Json.csproj" />
-    <ProjectReference Include="..\Stize.Testing.Xunit\Stize.Testing.Xunit.csproj" />
+    <ProjectReference Include="..\Xunit\Stize.Testing.Xunit.csproj" />
   </ItemGroup>
 
 </Project>

@@ -51,9 +51,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Persistence.Test", "P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{4AE1629B-5FAE-4F43-A36F-E1CA3441FE91}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Testing.Xunit", "Testing\Stize.Testing.Xunit\Stize.Testing.Xunit.csproj", "{27FD5644-E218-4C99-9268-CB1D80659639}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Testing.Xunit", "Testing\Xunit\Stize.Testing.Xunit.csproj", "{27FD5644-E218-4C99-9268-CB1D80659639}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Testing.Xunit.AspNetCore", "Testing\Stize.Testing.Xunit.AspNetCore\Stize.Testing.Xunit.AspNetCore.csproj", "{95F36694-6DE6-43CB-A411-47054C57521D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.Testing.Xunit.AspNetCore", "Testing\Xunit.AspNetCore\Stize.Testing.Xunit.AspNetCore.csproj", "{95F36694-6DE6-43CB-A411-47054C57521D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stize.DotNet.Json.Test", "DotNet\Json.Test\Stize.DotNet.Json.Test.csproj", "{828E1789-6896-4C07-A5D7-CB6044915A8E}"
 EndProject

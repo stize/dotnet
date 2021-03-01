@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Persistence\Core\Stize.Persistence.csproj" />
-    <ProjectReference Include="..\..\Testing\Stize.Testing.Xunit.AspNetCore\Stize.Testing.Xunit.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\Testing\Xunit.AspNetCore\Stize.Testing.Xunit.AspNetCore.csproj" />
     <ProjectReference Include="..\AspNetCore\Stize.Hosting.AspNetCore.csproj" />
   </ItemGroup>
 
