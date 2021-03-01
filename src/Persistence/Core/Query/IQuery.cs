@@ -4,12 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Stize.DotNet.Search.Sort;
 using Stize.DotNet.Specification;
-using Stize.Persistence.Mediator;
+using Stize.Persistence.QueryDispatcher;
 using Stize.Persistence.QueryResult;
 
 namespace Stize.Persistence.Query
 {
-    public interface IQuery<TResult> : IRequest<TResult>
+    public interface IQuery<TResult> : IQueryRequest<TResult>
         where TResult : IQueryResult
     {
        
