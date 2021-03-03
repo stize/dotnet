@@ -6,7 +6,6 @@ using Stize.Domain.Model;
 using Stize.DotNet.Result;
 using Stize.Hosting.AspNetCore.Extensions;
 using Stize.Hosting.AspNetCore.Test.Model;
-using Stize.Persistence.QueryResult;
 
 namespace Stize.Hosting.AspNetCore.Test.Controller
 {

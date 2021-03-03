@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Stize.Domain;
 using Stize.DotNet.Specification;
-using Stize.Persistence.Query;
-using Stize.Persistence.QueryDispatcher;
-using Stize.Persistence.QueryResult;
+using Stize.Persistence.Inquiry;
+using Stize.Persistence.InquiryDispatcher;
+using Stize.Persistence.InquiryResult;
 
 namespace Stize.Persistence.EntityFrameworkCore
 {
@@ -18,11 +18,11 @@ namespace Stize.Persistence.EntityFrameworkCore
     {
         private readonly TContext context;
 
-        private readonly IQueryDispatcher queryDispatcher;
+        private readonly IInquiryDispatcher queryDispatcher;
 
         private IDbContextTransaction Tx => this.context.Database.CurrentTransaction;
 
-        public EntityRepository(TContext dbContext, IQueryDispatcher queryDispatcher)
+        public EntityRepository(TContext dbContext, IInquiryDispatcher queryDispatcher)
         {
             this.queryDispatcher = queryDispatcher;
             this.context = dbContext;
@@ -97,10 +97,10 @@ namespace Stize.Persistence.EntityFrameworkCore
 
         }
 
-        public virtual Task<TResult> RunQueryAsync<TSource, TTarget, TResult>(IQuery<TSource, TTarget, TResult> query, CancellationToken cancellationToken = default)
+        public virtual Task<TResult> RunQueryAsync<TSource, TTarget, TResult>(IInquiry<TSource, TTarget, TResult> query, CancellationToken cancellationToken = default)
             where TSource : class
             where TTarget : class
-            where TResult : class, IQueryResult<TTarget>
+            where TResult : class, IInquiryResult<TTarget>
         {
             query.Provider = EfQueryableProvider.Instance;
             query.SourceQuery = this.GetQuery<TSource>();

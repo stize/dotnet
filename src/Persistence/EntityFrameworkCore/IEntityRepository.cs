@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Stize.Domain;
 using Stize.DotNet.Specification;
-using Stize.Persistence.Query;
-using Stize.Persistence.QueryResult;
+using Stize.Persistence.Inquiry;
+using Stize.Persistence.InquiryResult;
 
 namespace Stize.Persistence.EntityFrameworkCore
 {
@@ -31,10 +31,10 @@ namespace Stize.Persistence.EntityFrameworkCore
 
         public Task RemoveAsync<T, TKey>(TKey key, CancellationToken cancellationToken = default) where T : class, IObject<TKey>;
 
-        Task<TResult> RunQueryAsync<TSource, TTarget, TResult>(IQuery<TSource, TTarget, TResult> query, CancellationToken cancellationToken = default)
+        Task<TResult> RunQueryAsync<TSource, TTarget, TResult>(IInquiry<TSource, TTarget, TResult> query, CancellationToken cancellationToken = default)
             where TSource : class
             where TTarget : class
-            where TResult : class, IQueryResult<TTarget>;
+            where TResult : class, IInquiryResult<TTarget>;
     }
 
 }
