@@ -12,6 +12,12 @@ namespace Stize.Hosting.AspNetCore.Http
         {
             this.accessor = accessor;
         }
-        public IPrincipal Current => this.accessor.HttpContext.User;
+        public IPrincipal Current => this.accessor.HttpContext?.User;
+
+        /// <summary>
+        /// Gets a value indicating whether the current IPrincipal object has a valid value.
+        /// </summary>
+        public bool HasValue => this.accessor != null && this.accessor.HttpContext != null && this.accessor.HttpContext.User != null;
+
     }
 }
