@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Stize.DotNet.Result;
 using Stize.Persistence.Inquiry;
-using Stize.Persistence.InquiryResult;
 
 namespace Stize.Persistence.InquiryDispatcher
 {
@@ -16,7 +16,7 @@ namespace Stize.Persistence.InquiryDispatcher
         }
 
         public async Task<TResult> HandleAsync<TResult>(IInquiry<TResult> inquiry, CancellationToken cancellationToken = default)
-            where TResult : class, IInquiryResult
+            where TResult : class, IValueResult
         {
 
             var wrapper = (InquiryHandlerWrapper<TResult>)Activator.CreateInstance(typeof(InquiryHandlerWrapper<,>).MakeGenericType(inquiry.GetType(), typeof(TResult)));

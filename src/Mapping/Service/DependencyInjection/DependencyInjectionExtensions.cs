@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 using Stize.Mapping.Service;
 
 namespace Microsoft.Extensions.DependencyInjection

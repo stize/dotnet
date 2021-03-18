@@ -4,7 +4,7 @@ using Stize.DotNet.Result.Reasons;
 
 namespace Stize.DotNet.Result
 {
-    public abstract class ResultBase
+    public abstract class WrappedResultBase
     {
         public bool Success { get; protected set; }
 
@@ -13,8 +13,8 @@ namespace Stize.DotNet.Result
         protected readonly List<Reason> InternalReasons = new List<Reason>();
     }
 
-    public abstract class ResultBase<T> : ResultBase
-        where T : ResultBase<T>
+    public abstract class WrappedResultBase<T> : WrappedResultBase
+        where T : WrappedResultBase<T>
     {
         public T WithReason(Reason reason)
         {

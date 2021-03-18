@@ -1,5 +1,5 @@
-﻿using Stize.Persistence.Inquiry;
-using Stize.Persistence.InquiryResult;
+﻿using Stize.DotNet.Result;
+using Stize.Persistence.Inquiry;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@ namespace Stize.Persistence.InquiryHandler
 
     public interface IInquiryHandler<TRequest, TResponse>
         where TRequest : IInquiry<TResponse>
-        where TResponse : IInquiryResult
+        where TResponse : IValueResult
     {
         Task<TResponse> HandleAsync(TRequest inquiry, CancellationToken cancellationToken = default);
     }
@@ -17,7 +17,7 @@ namespace Stize.Persistence.InquiryHandler
         where TInquiry : IInquiry<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
-        where TResult : IInquiryResult<TTarget>
+        where TResult : IValueResult<TTarget>
     {        
     }
 }

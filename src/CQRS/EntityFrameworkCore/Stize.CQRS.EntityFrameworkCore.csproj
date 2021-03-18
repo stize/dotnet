@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Folder Include="Command\" />
+    <Folder Include="Saga\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DotNet\Search.Specification\Stize.DotNet.Search.Specification.csproj" />
+    <ProjectReference Include="..\..\Persistence\EntityFrameworkCore\Stize.Persistence.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Core\Stize.CQRS.csproj" />
+  </ItemGroup>
+</Project>

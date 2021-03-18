@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DotNet\Result\Stize.DotNet.Result.csproj" />
     <ProjectReference Include="..\..\DotNet\Search\Stize.DotNet.Search.csproj" />
     <ProjectReference Include="..\..\DotNet\Specification\Stize.DotNet.Specification.csproj" />
   </ItemGroup>

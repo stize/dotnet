@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using Stize.Testing.Xunit.AspNetCore;
 using Stize.Testing.Xunit.AspNetCore.Extensions;
 

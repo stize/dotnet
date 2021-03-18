@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Stize.DotNet.Result;
 using Stize.Persistence.Inquiry;
 using Stize.Persistence.InquiryHandler;
-using Stize.Persistence.InquiryResult;
 
 namespace Stize.Persistence.InquiryDispatcher
 {
     internal abstract class InquiryHandlerWrapper<TResult>
-        where TResult : IInquiryResult
+        where TResult : IValueResult
     {
         public abstract Task<TResult> HandleAsync(IInquiry<TResult> inquiry, IInquiryHandlerFactory handlerFactory, CancellationToken cancellationToken = default);
     }
 
     internal class InquiryHandlerWrapper<TInquiry, TResult> : InquiryHandlerWrapper<TResult>
         where TInquiry : class, IInquiry<TResult>
-        where TResult : IInquiryResult
+        where TResult : IValueResult
     {
 
         public override async Task<TResult> HandleAsync(IInquiry<TResult> inquiry, IInquiryHandlerFactory handlerFactory, CancellationToken cancellationToken = default)

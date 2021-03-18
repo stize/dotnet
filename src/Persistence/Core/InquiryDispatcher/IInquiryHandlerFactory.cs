@@ -1,6 +1,6 @@
-﻿using Stize.Persistence.Inquiry;
+﻿using Stize.DotNet.Result;
+using Stize.Persistence.Inquiry;
 using Stize.Persistence.InquiryHandler;
-using Stize.Persistence.InquiryResult;
 
 namespace Stize.Persistence.InquiryDispatcher
 {
@@ -8,6 +8,6 @@ namespace Stize.Persistence.InquiryDispatcher
     {
         IInquiryHandler<TRequest, TResponse> GetHandler<TRequest, TResponse>()
             where TRequest : IInquiry<TResponse>
-            where TResponse : IInquiryResult;
+            where TResponse : IValueResult;
     }
 }

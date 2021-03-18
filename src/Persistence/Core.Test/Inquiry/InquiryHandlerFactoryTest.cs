@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Stize.Persistence.Materializer;
 using Stize.Persistence.Inquiry;
 using Stize.Persistence.InquiryDispatcher;
-using Stize.Persistence.InquiryResult;
 using Xunit;
+using Stize.DotNet.Result;
 
 namespace Stize.Persistence.Test.Inquiry
 {
@@ -30,8 +30,8 @@ namespace Stize.Persistence.Test.Inquiry
         {
             var Inquiry = new SingleValueInquiry<Source, Target>();
 
-            var result = await this.MustResolveInquiryHandlerAndHandleAsync<SingleValueInquiry<Source, Target>, Source, Target, SingleInquiryResult<Target>>(Inquiry);
-            Assert.NotNull(result.Result);
+            var result = await this.MustResolveInquiryHandlerAndHandleAsync<SingleValueInquiry<Source, Target>, Source, Target, SingleValueResult<Target>>(Inquiry);
+            Assert.NotNull(result.Value);
         }
 
 
@@ -40,9 +40,9 @@ namespace Stize.Persistence.Test.Inquiry
         {
             var Inquiry = new MultipleValueInquiry<Source, Target>();
 
-            var result = await this.MustResolveInquiryHandlerAndHandleAsync<MultipleValueInquiry<Source, Target>, Source, Target, MultipleInquiryResult<Target>>(Inquiry);
-            Assert.NotNull(result.Result);
-            Assert.Equal(2, result.Result.Count());
+            var result = await this.MustResolveInquiryHandlerAndHandleAsync<MultipleValueInquiry<Source, Target>, Source, Target, MultipleValueResult<Target>>(Inquiry);
+            Assert.NotNull(result.Value);
+            Assert.Equal(2, result.Value.Count());
         }
 
 
@@ -51,16 +51,16 @@ namespace Stize.Persistence.Test.Inquiry
         {
             var Inquiry = new PagedValueInquiry<Source, Target>() { Take = 1 };
 
-            var result = await this.MustResolveInquiryHandlerAndHandleAsync<PagedValueInquiry<Source, Target>, Source, Target, PagedInquiryResult<Target>>(Inquiry);
-            Assert.NotNull(result.Result);
-            Assert.Single(result.Result);
+            var result = await this.MustResolveInquiryHandlerAndHandleAsync<PagedValueInquiry<Source, Target>, Source, Target, PagedValueResult<Target>>(Inquiry);
+            Assert.NotNull(result.Value);
+            Assert.Single(result.Value);
         }
 
         private async Task<TResult> MustResolveInquiryHandlerAndHandleAsync<TInquiry, TSource, TTarget, TResult>(TInquiry Inquiry)
             where TInquiry : IInquiry<TSource, TTarget, TResult>
             where TSource : class
             where TTarget : class
-            where TResult : class, IInquiryResult<TTarget>
+            where TResult : class, IValueResult<TTarget>
         {
 
             Inquiry.SourceQuery = this.GetInquiryable<TSource>();

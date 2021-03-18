@@ -1,22 +1,18 @@
-﻿using System.Threading;
+﻿using Stize.DotNet.Result;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Stize.CQRS.Mediator
 {
 
     public interface IRequest<TResult> 
-        where TResult : IRequestResult
+        where TResult : IValueResult
     {
-    }
-
-    public interface IRequestResult
-    {
-
     }
 
     public interface IRequestHandler<TRequest, TResult>
         where TRequest : IRequest<TResult>
-        where TResult : IRequestResult
+        where TResult : IValueResult
     {
         public Task<TResult> HandleAsync(TRequest request, CancellationToken cancellationToken = default);
     }
@@ -24,6 +20,6 @@ namespace Stize.CQRS.Mediator
     public interface IMediator
     {
         public Task<TResult> SendAsync<TResult>(IRequest<TResult> request)
-            where TResult : IRequestResult;
+            where TResult : IValueResult;
     }
 }

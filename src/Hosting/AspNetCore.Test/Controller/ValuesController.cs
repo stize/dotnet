@@ -33,8 +33,11 @@ namespace Stize.Hosting.AspNetCore.Test.Controller
         [HttpGet("paginated")]
         public IActionResult GetPaginated()
         {
-            var page = PaginatedResult<object>.Ok(new object[] {1, 2, 3}).WithTotal(3);
-            
+            var page = new PagedValueResult<object>()
+            {
+                Value = new object[] { 1, 2, 3 }
+            };
+
             return this.PagedJsonResult(page, true);
         }
 

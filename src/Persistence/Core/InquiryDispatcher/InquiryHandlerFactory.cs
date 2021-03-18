@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Stize.DotNet.Result;
 using Stize.Persistence.Inquiry;
 using Stize.Persistence.InquiryHandler;
-using Stize.Persistence.InquiryResult;
 
 namespace Stize.Persistence.InquiryDispatcher
 {
@@ -24,7 +24,7 @@ namespace Stize.Persistence.InquiryDispatcher
 
         public IInquiryHandler<TRequest, TResponse> GetHandler<TRequest, TResponse>()
             where TRequest : IInquiry<TResponse>
-            where TResponse : IInquiryResult
+            where TResponse : IValueResult
         {
             var targetHandler = typeof(IInquiryHandler<TRequest, TResponse>);
             var effectiveHandlerTypes = new List<Type>();
@@ -66,7 +66,7 @@ namespace Stize.Persistence.InquiryDispatcher
 
         private void CheckGenericDefinitionHandler<TInquiry, TResponse>(Type handler, List<Type> effectiveHandlers)
             where TInquiry : IInquiry<TResponse>
-            where TResponse : IInquiryResult
+            where TResponse : IValueResult
         {
             var rInquiryType = typeof(TInquiry);
             var rInquiryOfDefinition = rInquiryType.GetGenericTypeDefinition();

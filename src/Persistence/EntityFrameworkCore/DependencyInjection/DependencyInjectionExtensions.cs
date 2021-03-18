@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Stize.Persistence;
 using Stize.Persistence.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection

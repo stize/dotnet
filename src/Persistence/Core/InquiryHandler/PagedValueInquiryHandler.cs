@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Stize.Persistence.Materializer;
 using Stize.Persistence.Inquiry;
-using Stize.Persistence.InquiryResult;
+using Stize.DotNet.Result;
 
 namespace Stize.Persistence.InquiryHandler
 {
@@ -12,7 +12,7 @@ namespace Stize.Persistence.InquiryHandler
         where TInquiry : PagedValueInquiry<TSource, TTarget>, IInquiry<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
-        where TResult : PagedInquiryResult<TTarget>, new()
+        where TResult : PagedValueResult<TTarget>, new()
     {
         private int count;
 
@@ -51,7 +51,7 @@ namespace Stize.Persistence.InquiryHandler
             var values = await this.Inquiry.Provider.ToArrayAsync(queryable, cancellationToken);
             var result = new TResult
             {
-                Result = values,
+                Value = values,
                 Total = this.count,
                 Take = this.Inquiry.Take,
                 Skip = this.Inquiry.Skip
@@ -60,7 +60,7 @@ namespace Stize.Persistence.InquiryHandler
         }
     }
 
-    public class PagedValueInquiryHandler<TSource, TTarget>: PagedValueInquiryHandlerBase<PagedValueInquiry<TSource, TTarget>, TSource, TTarget, PagedInquiryResult<TTarget>>
+    public class PagedValueInquiryHandler<TSource, TTarget>: PagedValueInquiryHandlerBase<PagedValueInquiry<TSource, TTarget>, TSource, TTarget, PagedValueResult<TTarget>>
         where TSource : class
         where TTarget : class
     {

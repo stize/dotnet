@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Stize.Persistence.Materializer;
 using Stize.Persistence.Inquiry;
-using Stize.Persistence.InquiryResult;
+using Stize.DotNet.Result;
 
 namespace Stize.Persistence.InquiryHandler
 {
@@ -11,7 +11,7 @@ namespace Stize.Persistence.InquiryHandler
         where TInquiry : IInquiry<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
-        where TResult : IInquiryResult<TTarget>
+        where TResult : IValueResult<TTarget>
     {
         protected InquiryHandler(IMaterializer<TSource, TTarget> materializer)
         {

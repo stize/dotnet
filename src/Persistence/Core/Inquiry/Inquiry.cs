@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Stize.DotNet.Result;
 using Stize.DotNet.Search.Sort;
 using Stize.DotNet.Specification;
-using Stize.Persistence.InquiryResult;
 
 namespace Stize.Persistence.Inquiry
 {
     public abstract class Inquiry<TResult> : IInquiry<TResult>
-        where TResult : IInquiryResult
+        where TResult : IValueResult
     {
         
     }
@@ -15,7 +15,7 @@ namespace Stize.Persistence.Inquiry
     public abstract class Inquiry<TSource, TTarget, TResult> : Inquiry<TResult>, IInquiry<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
-        where TResult : IInquiryResult<TTarget>
+        where TResult : IValueResult<TTarget>
     {
 
         public IQueryable<TSource> SourceQuery { get; set; }

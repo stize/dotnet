@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Stize.Domain;
+using Stize.DotNet.Result;
 using Stize.DotNet.Specification;
 using Stize.Persistence.Inquiry;
 using Stize.Persistence.InquiryDispatcher;
-using Stize.Persistence.InquiryResult;
 
 namespace Stize.Persistence.EntityFrameworkCore
 {
@@ -100,7 +100,7 @@ namespace Stize.Persistence.EntityFrameworkCore
         public virtual Task<TResult> RunQueryAsync<TSource, TTarget, TResult>(IInquiry<TSource, TTarget, TResult> query, CancellationToken cancellationToken = default)
             where TSource : class
             where TTarget : class
-            where TResult : class, IInquiryResult<TTarget>
+            where TResult : class, IValueResult<TTarget>
         {
             query.Provider = EfQueryableProvider.Instance;
             query.SourceQuery = this.GetQuery<TSource>();

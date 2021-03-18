@@ -1,20 +1,16 @@
 ﻿using Stize.CQRS.Mediator;
+using Stize.DotNet.Result;
 
 namespace Stize.CQRS.Saga
 {
     public interface ISaga<TResult>: IRequest<TResult>
-        where TResult : ISagaResult
+        where TResult : IValueResult
     {
-    }
-
-    public interface ISagaResult : IRequestResult
-    {
-
     }
 
     public interface ISagaHandler<TSaga, TResult> : IRequestHandler<TSaga, TResult>
         where TSaga : ISaga<TResult>
-        where TResult : ISagaResult
+        where TResult : IValueResult
     {       
     }
 }

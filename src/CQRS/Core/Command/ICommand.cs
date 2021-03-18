@@ -1,19 +1,16 @@
 ﻿using Stize.CQRS.Mediator;
+using Stize.DotNet.Result;
 
 namespace Stize.CQRS.Command
 {
     public interface ICommand<TResult> : IRequest<TResult>
-        where TResult : ICommandResult
-    {
-    }
-
-    public interface ICommandResult : IRequestResult
+        where TResult : IValueResult
     {
     }
 
     public interface ICommandHandler<TCommand, TResult> : IRequestHandler<TCommand, TResult>
         where TCommand : ICommand<TResult>
-        where TResult : ICommandResult
+        where TResult : IValueResult
     {        
     }
 

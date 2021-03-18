@@ -26,10 +26,10 @@ namespace Stize.Hosting.AspNetCore.ActionResult
     public class PagedJsonResult<T> : PagedJsonResult, IActionResult
         where T : class
     {
-        private readonly PaginatedResult<T> content;
+        private readonly PagedValueResult<T> content;
         private readonly bool envelope;
 
-        public PagedJsonResult(PaginatedResult<T> content, bool envelope)
+        public PagedJsonResult(PagedValueResult<T> content, bool envelope)
         {
             this.content = content;
             this.envelope = envelope;

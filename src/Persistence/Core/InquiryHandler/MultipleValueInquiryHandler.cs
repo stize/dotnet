@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Stize.Persistence.Materializer;
 using Stize.Persistence.Inquiry;
-using Stize.Persistence.InquiryResult;
+using Stize.DotNet.Result;
 
 namespace Stize.Persistence.InquiryHandler
 {
@@ -11,7 +11,7 @@ namespace Stize.Persistence.InquiryHandler
         where TInquiry : MultipleValueInquiry<TSource, TTarget>, IInquiry<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
-        where TResult : MultipleInquiryResult<TTarget>, new()
+        where TResult : MultipleValueResult<TTarget>, new()
     {
         protected MultipleValueInquiryHandlerBase(IMaterializer<TSource, TTarget> materializer) : base(materializer)
         {
@@ -20,12 +20,12 @@ namespace Stize.Persistence.InquiryHandler
         protected override async Task<TResult> GenerateResultAsync(IQueryable<TTarget> queryable, CancellationToken cancellationToken = default)
         {
             var values = await this.Inquiry.Provider.ToArrayAsync(queryable, cancellationToken);
-            var result = new TResult { Result = values };
+            var result = new TResult { Value = values };
             return result;
         }
     }
 
-    public class MultipleValueInquiryHandler<TSource, TTarget> : MultipleValueInquiryHandlerBase<MultipleValueInquiry<TSource, TTarget>, TSource, TTarget, MultipleInquiryResult<TTarget>>
+    public class MultipleValueInquiryHandler<TSource, TTarget> : MultipleValueInquiryHandlerBase<MultipleValueInquiry<TSource, TTarget>, TSource, TTarget, MultipleValueResult<TTarget>>
         where TSource : class
         where TTarget : class
     {

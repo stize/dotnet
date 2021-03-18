@@ -1,8 +1,8 @@
-﻿using Stize.Persistence.InquiryResult;
+﻿using Stize.DotNet.Result;
 
 namespace Stize.Persistence.Inquiry
 {
-    public class PagedValueInquiry<TSource, TTarget> : Inquiry<TSource, TTarget, PagedInquiryResult<TTarget>>
+    public class PagedValueInquiry<TSource, TTarget> : Inquiry<TSource, TTarget, PagedValueResult<TTarget>>
         where TSource : class
         where TTarget : class
 
