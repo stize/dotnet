@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Stize.Domain;
 using Stize.DotNet.Delta;
+using Stize.DotNet.Result;
 using Stize.DotNet.Specification;
 
 namespace Stize.Mapping.Service
@@ -38,14 +39,14 @@ namespace Stize.Mapping.Service
             where TModel : class, IObject<TKey>
             where TEntity : class, IObject<TKey>;
 
-        Task RemoveAsync<TEntity, TKey>(TKey id, CancellationToken cancellationToken = default)
+        Task<Result<TKey>> RemoveAsync<TEntity, TKey>(TKey id, CancellationToken cancellationToken = default)
             where TEntity : class, IObject<TKey>;
 
-        Task ApplyChangesAsync<TModel, TEntity, TKey>(TModel model, CancellationToken cancellationToken = default)
+        Task<Result<TKey>> UpdateAsync<TModel, TEntity, TKey>(TModel model, CancellationToken cancellationToken = default)
             where TModel : class, IObject<TKey>
             where TEntity : class, IObject<TKey>;
 
-        Task PatchAsync<TModel, TEntity, TKey>(Delta<TModel> delta, CancellationToken cancellationToken = default)
+        Task<Result<TKey>> PatchAsync<TModel, TEntity, TKey>(Delta<TModel> delta, CancellationToken cancellationToken = default)
             where TModel : class, IObject<TKey>
             where TEntity : class, IObject<TKey>;
     }

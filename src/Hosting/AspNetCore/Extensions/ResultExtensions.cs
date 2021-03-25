@@ -6,9 +6,9 @@ namespace Stize.Hosting.AspNetCore.Extensions
 {
     public static class ResultExtensions
     {
-        public static IActionResult ToActionResult<T>(this WrappedResult<T> result, bool envelope = false)
+        public static IActionResult ToActionResult<T>(this Result<T> result, bool envelope = false)
         {
-            if (!result.Success)
+            if (!result.IsSuccess)
             {
                 var problemDetails = new ProblemDetails();
                 problemDetails.Extensions.Add(nameof(Reason), result.Reasons);

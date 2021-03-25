@@ -1,6 +1,5 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <Folder Include="Command\" />
     <Folder Include="Saga\" />
   </ItemGroup>
   <ItemGroup>
