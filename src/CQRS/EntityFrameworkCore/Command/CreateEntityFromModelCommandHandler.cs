@@ -15,9 +15,9 @@ namespace Stize.CQRS.EntityFrameworkCore.Command
         where TContext : DbContext
     {
         private readonly IEntityRepository<TContext> repository;
-        private readonly IEntityBuilder<TModel, TEntity, TKey> entityBuilder;
+        private readonly IEntityBuilder<TEntity, TKey> entityBuilder;
 
-        public CreateEntityFromModelCommandHandler(IEntityRepository<TContext> repository, IEntityBuilder<TModel, TEntity, TKey> entityBuilder)
+        public CreateEntityFromModelCommandHandler(IEntityRepository<TContext> repository, IEntityBuilder<TEntity, TKey> entityBuilder)
         {
             this.repository = repository;
             this.entityBuilder = entityBuilder;

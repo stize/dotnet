@@ -15,21 +15,21 @@ namespace Stize.CQRS.EntityFrameworkCore.Test.Internal
         }
     }
 
-    public class ObjectToObjectBuilder<TModel, TEntity, TKey> : IEntityBuilder<TModel, TEntity, TKey>
-        where TModel : class
+    public class ObjectToObjectBuilder<TEntity, TKey> : IEntityBuilder<TEntity, TKey>
          where TEntity : class, IEntity<TKey>, new()
     {
-        public TEntity Create(TModel model)
+        public TEntity Create<TModel>(TModel model) where TModel : class
+
         {
             return new TEntity();
         }
 
-        public TEntity Patch(Delta<TModel> model)
+        public TEntity Patch<TModel>(Delta<TModel> model) where TModel : class
         {
             return new TEntity();
         }
 
-        public TEntity Update(TModel model)
+        public TEntity Update<TModel>(TModel model) where TModel : class
         {
             return new TEntity();
         }

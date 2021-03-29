@@ -3,12 +3,11 @@ using Stize.DotNet.Delta;
 
 namespace Stize.Persistence.Materializer
 {
-    public interface IEntityBuilder<TModel, TEntity, TKey>
-        where TModel : class
-         where TEntity : class, IEntity<TKey>
+    public interface IEntityBuilder<TEntity, TKey>        
+        where TEntity : class, IEntity<TKey>
     {
-        TEntity Create(TModel model);
-        TEntity Update(TModel model);
-        TEntity Patch(Delta<TModel> model);
+        TEntity Create<TModel>(TModel model) where TModel : class;
+        TEntity Update<TModel>(TModel model) where TModel : class;
+        TEntity Patch<TModel>(Delta<TModel> model) where TModel : class;
     }
 }

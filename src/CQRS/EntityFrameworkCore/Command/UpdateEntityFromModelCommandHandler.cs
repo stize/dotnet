@@ -19,12 +19,12 @@ namespace Stize.CQRS.EntityFrameworkCore.Command
     {
         private readonly ILogger<UpdateEntityFromModelCommandHandler<TModel, TEntity, TKey, TContext>> logger;
         private readonly IEntityRepository<TContext> repository;
-        private readonly IEntityBuilder<TModel, TEntity, TKey> entityBuilder;
+        private readonly IEntityBuilder<TEntity, TKey> entityBuilder;
 
         public UpdateEntityFromModelCommandHandler(
             ILogger<UpdateEntityFromModelCommandHandler<TModel, TEntity, TKey, TContext>> logger, 
             IEntityRepository<TContext> repository,
-            IEntityBuilder<TModel, TEntity, TKey> entityBuilder)
+            IEntityBuilder<TEntity, TKey> entityBuilder)
         {
             this.logger = logger;
             this.repository = repository;

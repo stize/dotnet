@@ -26,7 +26,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Test.Mediator
             services.AddScoped<ISpecificationBuilder, SpecificationBuilder>();
 
             services.AddScoped(typeof(IMaterializer<,>), typeof(ObjectToObjectMaterializer<,>));
-            services.AddScoped(typeof(IEntityBuilder<,,>), typeof(ObjectToObjectBuilder<,,>));
+            services.AddScoped(typeof(IEntityBuilder<,>), typeof(ObjectToObjectBuilder<,>));
 
             this.provider = services.BuildServiceProvider();
             this.EnsureDatabaseCreated();
