@@ -6,13 +6,7 @@ using Stize.DotNet.Specification;
 
 namespace Stize.Persistence.Inquiry
 {
-    public abstract class Inquiry<TResult> : IInquiry<TResult>
-        where TResult : IValueResult
-    {
-        
-    }
-
-    public abstract class Inquiry<TSource, TTarget, TResult> : Inquiry<TResult>, IInquiry<TSource, TTarget, TResult>
+    public abstract class Inquiry<TSource, TTarget, TResult> : IInquiry<TSource, TTarget, TResult>
         where TSource : class
         where TTarget : class
         where TResult : IValueResult<TTarget>

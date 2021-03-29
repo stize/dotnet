@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Stize.CQRS.Command;
 using Stize.Domain.Entity;
 using Stize.DotNet.Result;
 using Stize.Persistence.EntityFrameworkCore;
@@ -10,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Stize.CQRS.EntityFrameworkCore.Command
 {
-    public class DeleteEntityByIdCommandHandler<TEntity, TKey, TContext> : ICommandHandler<DeleteEntityByIdCommand<TEntity, TKey>, Result<TKey>>
+    public class DeleteEntityByIdCommandHandler<TEntity, TKey, TContext> :
+        EntityCommandHandler<DeleteEntityByIdCommand<TEntity, TKey, TContext>, TEntity, TKey, TContext>
         where TEntity : class, IEntity<TKey>
         where TContext : DbContext
     {
@@ -22,7 +22,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Command
             this.logger = logger;
             this.repository = repository;
         }
-        public async Task<Result<TKey>> HandleAsync(DeleteEntityByIdCommand<TEntity, TKey> request, CancellationToken cancellationToken = default)
+        public override async Task<Result<TKey>> HandleAsync(DeleteEntityByIdCommand<TEntity, TKey, TContext> request, CancellationToken cancellationToken = default)
         {
             var exists = await this.repository.Where(new EntityByIdSpecification<TEntity, TKey>(request.Id)).AnyAsync(cancellationToken);
             if (!exists)

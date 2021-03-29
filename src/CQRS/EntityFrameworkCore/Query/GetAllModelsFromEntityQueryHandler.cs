@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Stize.CQRS.Query;
+using Stize.CQRS.EntityFrameworkCore.Command;
 using Stize.Domain.Entity;
 using Stize.DotNet.Result;
 using Stize.Persistence.EntityFrameworkCore;
@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Stize.CQRS.EntityFrameworkCore.Query
 {
-    public class GetAllModelsFromEntityQueryHandler<TModel, TEntity, TKey, TContext> : IQueryHandler<GetAllModelsFromEntityQuery<TModel, TEntity>, MultipleValueResult<TModel>>
+    public class GetAllModelsFromEntityQueryHandler<TModel, TEntity, TKey, TContext> :
+        EntityQueryHandler<GetAllModelsFromEntityQuery<TModel, TEntity, TKey, TContext>, MultipleValueResult<TModel>, TModel, TEntity, TKey, TContext>
         where TModel : class
         where TEntity : class, IEntity<TKey>
         where TContext : DbContext
@@ -21,7 +22,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Query
             this.repository = repository;
         }
 
-        public async Task<MultipleValueResult<TModel>> HandleAsync(GetAllModelsFromEntityQuery<TModel, TEntity> request, CancellationToken cancellationToken)
+        public override async Task<MultipleValueResult<TModel>> HandleAsync(GetAllModelsFromEntityQuery<TModel, TEntity, TKey, TContext> request, CancellationToken cancellationToken)
         {            
             var query = new MultipleValueInquiry<TEntity, TModel>();
             var result = await this.repository.RunQueryAsync(query, cancellationToken);

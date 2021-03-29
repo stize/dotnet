@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Stize.CQRS.Query;
+using Stize.CQRS.EntityFrameworkCore.Command;
 using Stize.Domain.Entity;
 using Stize.DotNet.Result;
 using Stize.Persistence.EntityFrameworkCore;
@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace Stize.CQRS.EntityFrameworkCore.Query
 {
-    public class GetModelFromEntityByIdQueryHandler<TModel, TEntity, TKey, TContext> : IQueryHandler<GetModelFromEntityByIdQuery<TModel, TEntity, TKey>, SingleValueResult<TModel>>
-        where TModel : class        
+    public class GetModelFromEntityByIdQueryHandler<TModel, TEntity, TKey, TContext> :
+        EntityQueryHandler<GetModelFromEntityByIdQuery<TModel, TEntity, TKey, TContext>, SingleValueResult<TModel>, TModel, TEntity, TKey, TContext>
+        where TModel : class
         where TEntity : class, IEntity<TKey>
         where TContext : DbContext
     {
@@ -21,7 +22,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Query
         {
             this.repository = repository;
         }
-        public async Task<SingleValueResult<TModel>> HandleAsync(GetModelFromEntityByIdQuery<TModel, TEntity, TKey> request, CancellationToken cancellationToken = default)
+        public override async Task<SingleValueResult<TModel>> HandleAsync(GetModelFromEntityByIdQuery<TModel, TEntity, TKey, TContext> request, CancellationToken cancellationToken = default)
         {
             var sourceSpecification = new EntityByIdSpecification<TEntity, TKey>(request.Key);
             var query = new SingleValueInquiry<TEntity, TModel>()

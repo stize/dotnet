@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Stize.CQRS.Command;
 using Stize.Domain.Entity;
 using Stize.DotNet.Result;
 using Stize.Persistence.EntityFrameworkCore;
@@ -9,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Stize.CQRS.EntityFrameworkCore.Command
 {
-    public class CreateEntityFromModelCommandHandler<TModel, TEntity, TKey, TContext> : ICommandHandler<CreateEntityFromModelCommand<TModel, TEntity, TKey>, Result<TKey>>
+    public class CreateEntityFromModelCommandHandler<TModel, TEntity, TKey, TContext> : 
+        EntityCommandHandler<CreateEntityFromModelCommand<TModel, TEntity, TKey, TContext>, TModel, TEntity, TKey, TContext>
         where TModel : class
         where TEntity : class, IEntity<TKey>
         where TContext : DbContext
@@ -22,7 +22,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Command
             this.repository = repository;
             this.entityBuilder = entityBuilder;
         }
-        public async Task<Result<TKey>> HandleAsync(CreateEntityFromModelCommand<TModel, TEntity, TKey> request, CancellationToken cancellationToken = default)
+        public override async Task<Result<TKey>> HandleAsync(CreateEntityFromModelCommand<TModel, TEntity, TKey, TContext> request, CancellationToken cancellationToken = default)
         {           
             var entity = this.entityBuilder.Create(request.Model);
             

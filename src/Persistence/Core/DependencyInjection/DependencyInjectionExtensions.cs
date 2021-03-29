@@ -1,6 +1,7 @@
 ﻿using System;
-using Stize.Persistence.InquiryDispatcher;
+using Stize.Mediator.Internal;
 using Stize.Persistence.InquiryHandler;
+using Stize.Persistence.Internal;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -8,30 +9,17 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddStizePersistence(this IServiceCollection services)
         {
-            services.AddInquiryDispatcher();
+            services.AddScoped<IRequestHandlerFactory, InquiryHandlerFactory>();
             services.AddInquiryHandlers();
             return services;
         }
 
-        public static IServiceCollection AddInquiryHandler(this IServiceCollection services, Type handlerType)
-        {
-            services.Configure<InquiryHandlerFactoryOptions>(options => options.AddHandler(handlerType));
-            services.AddTransient(handlerType);
-            return services;
-        }
-
-        private static IServiceCollection AddInquiryDispatcher(this IServiceCollection services)
-        {
-            services.AddScoped<IInquiryDispatcher, InquiryDispatcher>()
-                    .AddScoped<IInquiryHandlerFactory, InquiryHandlerFactory>();
-            return services;
-        }
-
+       
         private static IServiceCollection AddInquiryHandlers(this IServiceCollection services)
         {
-            services.AddInquiryHandler(typeof(SingleValueInquiryHandler<,>));
-            services.AddInquiryHandler(typeof(MultipleValueInquiryHandler<,>));
-            services.AddInquiryHandler(typeof(PagedValueInquiryHandler<,>));
+            services.AddScoped(typeof(IInquiryHandler<,>), typeof(SingleValueInquiryHandler<,>));
+            services.AddScoped(typeof(IInquiryHandler<,>), typeof(MultipleValueInquiryHandler<,>));
+            services.AddScoped(typeof(IInquiryHandler<,>), typeof(PagedValueInquiryHandler<,>));
 
             return services;
         }

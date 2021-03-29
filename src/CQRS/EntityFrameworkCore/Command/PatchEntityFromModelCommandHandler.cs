@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Stize.CQRS.Command;
 using Stize.Domain;
 using Stize.Domain.Entity;
 using Stize.DotNet.Result;
@@ -13,8 +12,9 @@ using System.Threading.Tasks;
 
 namespace Stize.CQRS.EntityFrameworkCore.Command
 {
-    public class PatchEntityFromModelCommandHandler<TModel, TEntity, TKey, TContext> : ICommandHandler<PatchEntityFromModelCommand<TModel, TEntity, TKey>, Result<TKey>>
-        where TModel : class, IObject<TKey>
+    public class PatchEntityFromModelCommandHandler<TModel, TEntity, TKey, TContext> :
+        EntityCommandHandler<PatchEntityFromModelCommand<TModel, TEntity, TKey, TContext>, TModel, TEntity, TKey, TContext>
+        where TModel : class
         where TEntity : class, IEntity<TKey>
         where TContext : DbContext
     {
@@ -31,7 +31,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Command
             this.repository = repository;
             this.entityBuilder = entityBuilder;
         }
-        public async Task<Result<TKey>> HandleAsync(PatchEntityFromModelCommand<TModel, TEntity, TKey> request, CancellationToken cancellationToken = default)
+        public override async Task<Result<TKey>> HandleAsync(PatchEntityFromModelCommand<TModel, TEntity, TKey, TContext> request, CancellationToken cancellationToken = default)
         {
             var idName = nameof(IObject<TKey>.Id);
             var delta = request.Delta;

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Stize.Persistence.Materializer;
 using Stize.Persistence.Inquiry;
 using Stize.DotNet.Result;
+using Stize.Persistence.Internal;
 
 namespace Stize.Persistence.InquiryHandler
 {

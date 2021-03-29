@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Stize.Domain;
 using Stize.DotNet.Result;
 using Stize.DotNet.Specification;
+using Stize.Mediator;
 using Stize.Persistence.Inquiry;
-using Stize.Persistence.InquiryDispatcher;
 
 namespace Stize.Persistence.EntityFrameworkCore
 {
@@ -18,13 +18,13 @@ namespace Stize.Persistence.EntityFrameworkCore
     {
         private readonly TContext context;
 
-        private readonly IInquiryDispatcher queryDispatcher;
+        private readonly IMediator mediator;
 
         private IDbContextTransaction Tx => this.context.Database.CurrentTransaction;
 
-        public EntityRepository(TContext dbContext, IInquiryDispatcher queryDispatcher)
+        public EntityRepository(TContext dbContext, IMediator mediator)
         {
-            this.queryDispatcher = queryDispatcher;
+            this.mediator = mediator;
             this.context = dbContext;
         }
 
@@ -104,7 +104,7 @@ namespace Stize.Persistence.EntityFrameworkCore
         {
             query.Provider = EfQueryableProvider.Instance;
             query.SourceQuery = this.GetQuery<TSource>();
-            return this.queryDispatcher.HandleAsync(query, cancellationToken);
+            return this.mediator.HandleAsync(query, cancellationToken);
         }
 
 

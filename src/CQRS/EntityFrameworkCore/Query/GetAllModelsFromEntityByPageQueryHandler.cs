@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Stize.CQRS.Query;
+using Stize.CQRS.EntityFrameworkCore.Command;
 using Stize.Domain.Entity;
 using Stize.DotNet.Result;
 using Stize.DotNet.Search.Specification;
@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Stize.CQRS.EntityFrameworkCore.Query
 {
-    public class GetAllModelsFromEntityByPageQueryHandler<TModel, TEntity, TKey, TContext> : IQueryHandler<GetAllModelsFromEntityByPageQuery<TModel, TEntity>, PagedValueResult<TModel>>
+    public class GetAllModelsFromEntityByPageQueryHandler<TModel, TEntity, TKey, TContext> :
+        EntityQueryHandler<GetAllModelsFromEntityByPageQuery<TModel, TEntity, TKey, TContext>, PagedValueResult<TModel>, TModel, TEntity, TKey, TContext>
         where TModel : class
         where TEntity : class, IEntity<TKey>
         where TContext : DbContext
@@ -25,7 +26,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Query
         }
 
 
-        public async Task<PagedValueResult<TModel>> HandleAsync(GetAllModelsFromEntityByPageQuery<TModel, TEntity> request, CancellationToken cancellationToken = default)
+        public override async Task<PagedValueResult<TModel>> HandleAsync(GetAllModelsFromEntityByPageQuery<TModel, TEntity, TKey, TContext> request, CancellationToken cancellationToken = default)
         {
             var targetSpecification = this.specificationBuilder.Create<TModel>(request.PageDescriptor.Filters);
 

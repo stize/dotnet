@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Stize.CQRS.Command;
 using Stize.Domain;
 using Stize.Domain.Entity;
 using Stize.DotNet.Result;
@@ -12,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace Stize.CQRS.EntityFrameworkCore.Command
 {
-    public class UpdateEntityFromModelCommandHandler<TModel, TEntity, TKey, TContext> : ICommandHandler<UpdateEntityFromModelCommand<TModel, TEntity, TKey>, Result<TKey>>
+    public class UpdateEntityFromModelCommandHandler<TModel, TEntity, TKey, TContext> :
+        EntityCommandHandler<UpdateEntityFromModelCommand<TModel, TEntity, TKey, TContext>, TModel, TEntity, TKey, TContext>
         where TModel : class, IObject<TKey>
         where TEntity : class, IEntity<TKey>
         where TContext : DbContext
@@ -30,7 +30,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Command
             this.repository = repository;
             this.entityBuilder = entityBuilder;
         }
-        public async Task<Result<TKey>> HandleAsync(UpdateEntityFromModelCommand<TModel, TEntity, TKey> request, CancellationToken cancellationToken = default)
+        public override async Task<Result<TKey>> HandleAsync(UpdateEntityFromModelCommand<TModel, TEntity, TKey, TContext> request, CancellationToken cancellationToken = default)
         {
             var exists = await this.repository.Where(new EntityByIdSpecification<TEntity, TKey>(request.Model.Id)).AnyAsync(cancellationToken);
             if (!exists)

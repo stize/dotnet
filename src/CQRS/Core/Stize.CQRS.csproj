@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\DotNet\Result\Stize.DotNet.Result.csproj" />
+    <ProjectReference Include="..\..\Mediator\Core\Stize.Mediator.csproj" />
   </ItemGroup>
 </Project>
