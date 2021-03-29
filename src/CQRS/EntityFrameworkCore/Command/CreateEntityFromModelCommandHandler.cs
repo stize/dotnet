@@ -24,7 +24,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Command
         }
         public override async Task<Result<TKey>> HandleAsync(CreateEntityFromModelCommand<TModel, TEntity, TKey, TContext> request, CancellationToken cancellationToken = default)
         {           
-            var entity = this.entityBuilder.Create(request.Model);
+            var entity = await this.entityBuilder.CreateAsync(request.Model);
             
             this.repository.Add(entity);
             await this.repository.CommitAsync(cancellationToken);

@@ -44,7 +44,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Command
                         var exists = await this.repository.Where(new EntityByIdSpecification<TEntity, TKey>(id)).AnyAsync(cancellationToken);
                         if (exists)
                         {
-                            var entity = this.entityBuilder.Patch(request.Delta);
+                            var entity = await this.entityBuilder.PatchAsync(request.Delta);
                             await this.repository.CommitAsync(cancellationToken);
                             return Result<TKey>.Success(id);
                         }

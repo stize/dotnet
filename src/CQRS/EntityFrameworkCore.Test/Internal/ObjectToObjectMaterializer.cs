@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Stize.Domain.Entity;
 using Stize.DotNet.Delta;
 using Stize.Persistence.Materializer;
@@ -7,7 +8,7 @@ using Stize.Persistence.Materializer;
 namespace Stize.CQRS.EntityFrameworkCore.Test.Internal
 {
     public class ObjectToObjectMaterializer<TSource, TTarget> : IMaterializer<TSource, TTarget>
-        where TTarget: new()
+        where TTarget : new()
     {
         public IQueryable<TTarget> Materialize(IQueryable<TSource> Inquiryable)
         {
@@ -18,20 +19,20 @@ namespace Stize.CQRS.EntityFrameworkCore.Test.Internal
     public class ObjectToObjectBuilder<TEntity, TKey> : IEntityBuilder<TEntity, TKey>
          where TEntity : class, IEntity<TKey>, new()
     {
-        public TEntity Create<TModel>(TModel model) where TModel : class
+        public Task<TEntity> CreateAsync<TModel>(TModel model) where TModel : class
 
         {
-            return new TEntity();
+            return Task.FromResult(new TEntity());
         }
 
-        public TEntity Patch<TModel>(Delta<TModel> model) where TModel : class
+        public Task<TEntity> PatchAsync<TModel>(Delta<TModel> model) where TModel : class
         {
-            return new TEntity();
+            return Task.FromResult(new TEntity());
         }
 
-        public TEntity Update<TModel>(TModel model) where TModel : class
+        public Task<TEntity> UpdateAsync<TModel>(TModel model) where TModel : class
         {
-            return new TEntity();
+            return Task.FromResult(new TEntity());
         }
     }
 }

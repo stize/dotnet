@@ -40,7 +40,7 @@ namespace Stize.CQRS.EntityFrameworkCore.Command
                 return Result<TKey>.Fail(error);
             }
 
-            var entity = this.entityBuilder.Update(request.Model);
+            var entity = await this.entityBuilder.UpdateAsync(request.Model);
             await this.repository.CommitAsync(cancellationToken);
 
             return Result<TKey>.Success(entity.Id);
