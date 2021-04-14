@@ -1,8 +1,4 @@
 <Project>
-  <PropertyGroup >
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-	<TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
   
   <ItemGroup Label="System">
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
