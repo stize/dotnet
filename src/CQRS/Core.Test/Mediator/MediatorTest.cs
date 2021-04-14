@@ -49,16 +49,16 @@ namespace Stize.CQRS.Test.Mediator
         }
 
 
-        [Fact]
-        public async Task Handle_Saga_Test()
-        {
-            using (var scope = provider.CreateScope())
-            {
-                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var query = new TestSaga();
-                var result = await mediator.HandleAsync(query, default);
-                Assert.NotNull(result);
-            }
-        }
+        //[Fact]
+        //public async Task Handle_Saga_Test()
+        //{
+        //    using (var scope = provider.CreateScope())
+        //    {
+        //        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        //        var query = new TestSaga();
+        //        var result = await mediator.HandleAsync(query, default);
+        //        Assert.NotNull(result);
+        //    }
+        //}
     }
 }
