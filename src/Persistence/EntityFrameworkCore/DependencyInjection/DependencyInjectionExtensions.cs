@@ -1,13 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Stize.Persistence;
 using Stize.Persistence.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class DependencyInjectionExtensions
     {
-        public static IServiceCollection AddStizeEntityDbContext<TContext>(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction = null) where TContext : DbContext
+        public static IServiceCollection AddStizeEntityDbContext<TContext>(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction = default) where TContext : DbContext
         {
             if (services == null)
             {

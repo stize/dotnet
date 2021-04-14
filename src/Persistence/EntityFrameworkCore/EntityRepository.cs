@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Stize.Domain;
+using Stize.DotNet.Result;
 using Stize.DotNet.Specification;
-using Stize.Persistence.Query;
-using Stize.Persistence.QueryDispatcher;
-using Stize.Persistence.QueryResult;
+using Stize.Mediator;
+using Stize.Persistence.Inquiry;
 
 namespace Stize.Persistence.EntityFrameworkCore
 {
@@ -18,13 +18,13 @@ namespace Stize.Persistence.EntityFrameworkCore
     {
         private readonly TContext context;
 
-        private readonly IQueryDispatcher queryDispatcher;
+        private readonly IMediator mediator;
 
         private IDbContextTransaction Tx => this.context.Database.CurrentTransaction;
 
-        public EntityRepository(TContext dbContext, IQueryDispatcher queryDispatcher)
+        public EntityRepository(TContext dbContext, IMediator mediator)
         {
-            this.queryDispatcher = queryDispatcher;
+            this.mediator = mediator;
             this.context = dbContext;
         }
 
@@ -97,14 +97,14 @@ namespace Stize.Persistence.EntityFrameworkCore
 
         }
 
-        public virtual Task<TResult> RunQueryAsync<TSource, TTarget, TResult>(IQuery<TSource, TTarget, TResult> query, CancellationToken cancellationToken = default)
+        public virtual Task<TResult> RunQueryAsync<TSource, TTarget, TResult>(IInquiry<TSource, TTarget, TResult> query, CancellationToken cancellationToken = default)
             where TSource : class
             where TTarget : class
-            where TResult : class, IQueryResult<TTarget>
+            where TResult : class, IValueResult<TTarget>
         {
             query.Provider = EfQueryableProvider.Instance;
             query.SourceQuery = this.GetQuery<TSource>();
-            return this.queryDispatcher.HandleAsync(query, cancellationToken);
+            return this.mediator.HandleAsync(query, cancellationToken);
         }
 
 

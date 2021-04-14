@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Mediator\Core\Stize.Mediator.csproj" />
     <ProjectReference Include="..\Core\Stize.Persistence.csproj" />
   </ItemGroup>
 

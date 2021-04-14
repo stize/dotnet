@@ -18,7 +18,7 @@ namespace Stize.Hosting.AspNetCore.Extensions
             return new JsonResult(errors);
         }
 
-        public static IActionResult PagedJsonResult<T>(this ControllerBase controller, PaginatedResult<T> result, bool envelope = false)
+        public static IActionResult PagedJsonResult<T>(this ControllerBase controller, PagedValueResult<T> result, bool envelope = false)
             where T : class
         {
             return new PagedJsonResult<T>(result, envelope);

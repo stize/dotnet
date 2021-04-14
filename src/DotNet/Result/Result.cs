@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-using Stize.DotNet.Result.Reasons;
+﻿using Stize.DotNet.Result.Reasons;
 
 namespace Stize.DotNet.Result
 {
 
-    public class Result : ResultBase<Result>
+    public class Result : ResultBase<Result>, IValueResult
     {
         private Result(bool success)
         {
-            this.Success = success;
+            this.IsSuccess = success;
         }
 
-        public static Result Ok()
+        public static Result Success()
         {
             return new Result(true);
         }
@@ -20,25 +19,30 @@ namespace Stize.DotNet.Result
         {
             return new Result(false).WithReason(error);
         }
+
+        public static Result Fail(string msg)
+        {
+            return new Result(false).WithReason(new Error(msg));
+        }
     }
 
-    public class Result<T> : ResultBase<Result<T>>
+    public class Result<T> : ResultBase<Result<T>>, IValueResult<T>
     {
         public T Value { get; }
 
         protected Result()
         {
-            this.Success = false;
+            this.IsSuccess = false;
         }
 
         protected Result(T value)
         {
             this.Value = value;
-            this.Success = true;
+            this.IsSuccess = true;
         }
 
 
-        public static Result<T> Ok(T value)
+        public static Result<T> Success(T value)
         {
             return new Result<T>(value);
         }
@@ -47,52 +51,12 @@ namespace Stize.DotNet.Result
         {
             return new Result<T>().WithReason(error);
         }
+
+        public static Result<T> Fail(string msg)
+        {
+            return new Result<T>().WithReason(new Error(msg));
+        }
     }
 
-    public class PaginatedResult<T> : ResultBase<PaginatedResult<T>>
-    {
-        public IEnumerable<T> Value { get; }
-        public int? Take { get; protected set; }
-        public int? Skip { get; protected set; }
-        public int Total { get; protected set; }
-
-        protected PaginatedResult()
-        {
-            this.Success = false;
-        }
-
-        protected PaginatedResult(IEnumerable<T> value)
-        {
-            this.Value = value;
-            this.Success = true;
-        }
-
-        public static PaginatedResult<T> Ok(IEnumerable<T> value)
-        {
-            return new PaginatedResult<T>(value);
-        }
-
-        public static PaginatedResult<T> Fail(Error error)
-        {
-            return new PaginatedResult<T>().WithReason(error);
-        }
-
-        public PaginatedResult<T> WithTake(int? take)
-        {
-            this.Take = take;
-            return this;
-        }
-       
-        public PaginatedResult<T> WithSkip(int? skip)
-        {
-            this.Skip = skip;
-            return this;
-        }
-        
-        public PaginatedResult<T> WithTotal(int total)
-        {
-            this.Total = total;
-            return this;
-        }
-    }
+    
 }

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <Compile Remove="Saga\**" />
+    <EmbeddedResource Remove="Saga\**" />
+    <None Remove="Saga\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DotNet\Result\Stize.DotNet.Result.csproj" />
+    <ProjectReference Include="..\..\Mediator\Core\Stize.Mediator.csproj" />
+  </ItemGroup>
+</Project>

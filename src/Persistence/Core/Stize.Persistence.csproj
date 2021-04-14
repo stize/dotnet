@@ -1,8 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="InquiryDispatcher\**" />
+    <EmbeddedResource Remove="InquiryDispatcher\**" />
+    <None Remove="InquiryDispatcher\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Core\Stize.Domain.csproj" />
+    <ProjectReference Include="..\..\DotNet\Delta\Stize.DotNet.Delta.csproj" />
+    <ProjectReference Include="..\..\DotNet\Result\Stize.DotNet.Result.csproj" />
     <ProjectReference Include="..\..\DotNet\Search\Stize.DotNet.Search.csproj" />
     <ProjectReference Include="..\..\DotNet\Specification\Stize.DotNet.Specification.csproj" />
+    <ProjectReference Include="..\..\Mediator\Core\Stize.Mediator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

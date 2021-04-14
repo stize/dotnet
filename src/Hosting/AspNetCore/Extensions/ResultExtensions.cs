@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Stize.DotNet.Result;
 using Stize.DotNet.Result.Reasons;
 
@@ -10,7 +8,7 @@ namespace Stize.Hosting.AspNetCore.Extensions
     {
         public static IActionResult ToActionResult<T>(this Result<T> result, bool envelope = false)
         {
-            if (!result.Success)
+            if (!result.IsSuccess)
             {
                 var problemDetails = new ProblemDetails();
                 problemDetails.Extensions.Add(nameof(Reason), result.Reasons);
