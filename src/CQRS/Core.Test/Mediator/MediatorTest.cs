@@ -19,7 +19,7 @@ namespace Stize.CQRS.Test.Mediator
 
             services.AddStizeQueryHandler<TestQueryHandler, TestQuery, Result>();
             services.AddStizeCommandHandler<TestCommandHandler, TestCommand, Result>();
-            services.AddStizeSagaHandler<TestSagaHandler, TestSaga, Result>();
+            //services.AddStizeSagaHandler<TestSagaHandler, TestSaga, Result>();
 
             provider = services.BuildServiceProvider();
         }
