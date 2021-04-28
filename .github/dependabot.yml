@@ -1,0 +1,14 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: Microsoft.EntityFrameworkCore
+    versions:
+    - 5.0.4
+  - dependency-name: Microsoft.AspNetCore.TestHost
+    versions:
+    - 5.0.4
