@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-dotnet@v1
         name: setup dotnet
         with:
-            dotnet-version: '8.0.X' # SDK Version to use;
+            dotnet-version: '8.0.x' # SDK Version to use;
             
       - uses: Stelzi79/action-minver@3.0.1
         name: run minver
