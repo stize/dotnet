@@ -2,47 +2,46 @@
   
   <ItemGroup Label="System">
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
-	<PackageVersion Include="System.Text.Json" Version="5.0.2" />
-	<PackageVersion Include="System.IO.Pipelines" Version="5.0.1" />
+	<PackageVersion Include="System.Text.Json" Version="8.0.3" />
+	<PackageVersion Include="System.IO.Pipelines" Version="8.0.0" />
   </ItemGroup>
   
   <ItemGroup Label="Microsoft Extensions">
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
-	<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageVersion Include="Microsoft.Extensions.Options" Version="5.0.0" />
-	<PackageVersion Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-	<PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
-	<PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />	
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+	<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Options" Version="8.0.2" />
+	<PackageVersion Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+	<PackageVersion Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0" />
+	<PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />	
   </ItemGroup>
     
   <ItemGroup Label="Entity Framework Core">
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
-	<PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />	
-	<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.3" />	
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+	<PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.4" />	
+	<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />	
   </ItemGroup> 
   
   <ItemGroup Label="Testing">
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
-    <PackageVersion Include="xunit" Version="2.4.1" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.3" />
-    <PackageVersion Include="coverlet.collector" Version="3.0.3" />
-    <PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="5.0.5" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageVersion Include="xunit" Version="2.8.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.0" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="8.0.4" />
 	<PackageVersion Include="Moq" Version="4.16.1" />
   </ItemGroup> 
   
   <ItemGroup Label="AutoMapper">
-    <PackageVersion Include="AutoMapper" Version="10.1.1" />
-    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageVersion Include="AutoMapper" Version="13.0.1" />    
   </ItemGroup>
   
     <ItemGroup Label="Newtonsoft.Json">
-    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup> 
   
   <ItemGroup Label="SourceLink">
-    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.0.0" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
   </ItemGroup> 
   
 </Project>

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Stize.Hosting.AspNetCore.ActionResult
@@ -21,7 +22,7 @@ namespace Stize.Hosting.AspNetCore.ActionResult
         {
             var response = context.HttpContext.Response;
             response.ContentType = MimeTypes.GetMimeType(this.FileName);
-            context.HttpContext.Response.Headers.Add("Content-Disposition", new[] { "attachment; filename=" + this.FileName });
+            context.HttpContext.Response.Headers.Append("Content-Disposition", new[] { "attachment; filename=" + this.FileName });
 
             await response.BodyWriter.WriteAsync(this.FileBytes);
 
